@@ -1,3 +1,380 @@
-.pageContainer{
+.mainContainer{
+  height: 100%;
+}
+
+.firstRollContainer{
+  max-width: 1120px;
+  height: 480px;
+  margin: .5rem auto;
+  display: flex;
+  margin-top: 2rem;
+
+  .cardContent1{
+    height: 480px;
+    width: 240px;
+    display: flex;
+    padding: 1rem;
+
+    .cardToken{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+      display: flex;
+      flex-direction: column;
+
+      .middleCard{
+        height: 80px;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: baseline;
+        flex-direction: column;
+  
+        a{
+          margin: 0rem auto;
+          height: 100%;
+          width: auto;
+        }
+      }
+
+      
+      .baseCard{
+        height: 300px;
+        width: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: baseline;
+        flex-direction: column;
+        text-align: center;
+        margin: 0rem auto;
+        word-wrap: break-word;
+        
+        h4{
+          line-height: 1rem;
+          color: white;
+          margin-top: .5rem;
+          margin-bottom: -1rem;
+
+          span{
+            line-height: .5rem;
+            color: white;
+            font-weight: 400;
+          }
+        }
+
+        p{
+          margin-top: .1rem;
+          font-size: 1rem;
+          line-height: 1.2rem;
+
+          span{
+            color: white;
+            font-size: .8rem;
+          }
+        }
+
+        svg{
+          width: .8rem;
+          margin-left: auto;
+          margin-top: -2.4rem;
+          margin-right: -.7rem;
+          cursor: pointer;
+        }
+        
+      }
+    }    
+  }
+  
+  .cardContent2{
+    height: 480px;
+    width: 880px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+
+    .content{
+      height: 80px;
+      width: 100%;
+      display: flex;
+      margin-bottom: 1rem;
+
+      .cardAddress{
+        height: 100%;
+        width: 70%;
+        margin-right: 1rem;        
+
+        .uniqueCard{
+          background-color: var(--header);
+          width: 100%;
+          height: 2.5rem;
+          border-radius: .5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          h4{
+            color: white;
+            font-weight: normal;
+            font-size: 1rem;
+            text-align: left;
+            padding: .5rem;
+            padding-left: 1rem;
+  
+            span{
+              font-size: .8rem;
+              margin-left: .5rem;
+              color: var(--border);
+              cursor: pointer;
+              font-weight: normal;
+            }
+          }
+
+          svg{
+            width: 1rem;
+            margin-left: auto;
+            margin-right: 4rem;
+            cursor: pointer;
+          }
+        }
+        
+        
+      }
+
+      .cardNet{
+        height: 100%;
+        width: 30%;
+        margin-left: 1rem;
+
+        .uniqueCard{
+          width: 100%;
+          height: 2.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          img{
+            height: 2.5rem;
+            width: auto;
+            padding: .2rem;
+            cursor: pointer;
+          }
+
+          h2{
+            margin-top: .1rem;
+            margin-right: 1rem;
+            margin-left: 1rem;
+          }
+        }
+      }
+    }
+
+    .content2{
+      height: 580px;
+      margin-top: 1rem;
+      width: 100%;
+      display: flex;
+
+      .cardWallets{
+        height: 100%;
+        width: 50%;
+        margin-right: 1rem;
+        border-radius: 1rem;
+        background: url("../../public/images/fundo.png") 100% 100% no-repeat;
+
+
+        .middleCard{
+          width: 100%;
+          height: 5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: -2.5rem;
+
+          svg{
+            width: 2rem;
+            height: auto;
+            margin-left: 2rem;
+          }
+
+          span{
+            height: 1.5rem;
+            color: var(--gray);
+            font-size: 1rem;
+            margin-left: .5rem;
+          }
+        }
+
+        .baseCard{
+          margin-left: 2.5rem;
+          font-size: 1.5rem;
+          margin-top: -1rem;
+        }
+      }
+
+      .cardHolders{
+        height: 100%;
+        width: 50%;
+        margin-left: 1rem;
+        border-radius: 1rem;
+        background-color: var(--header);
+      }
+    }
+  }
+}
+
+.topCard{
+  height: 5rem;
   width: 100%;
+  display: flex;
+  flex-direction: row;
+  
+  h3{
+    width: 99%;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: left;
+    margin: 1.5rem;
+    margin-right: 1rem;
+  }
+
+  p{
+    width: 1%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 1rem;
+    margin-left: 1rem;
+    margin-right: .2rem;
+    writing-mode: vertical-rl;
+    cursor: pointer;
+  }
+}
+
+.underTopCard{
+  margin-left: 1.5rem;
+  margin-top: -1rem;
+
+  p{
+    font-size: .75rem;
+    font-weight: normal;
+    color: var(--gray);
+  }
+}
+
+.secondRollContainer{
+  max-width: 1120px;
+  height: 460px;
+  margin: .5rem auto;
+  display: flex;
+
+  .cardContent1{
+    height: 460px;
+    width: 1120px;
+    display: flex;
+    padding: 1rem;
+
+    .cardGrowth{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+    }
+  }
+  
+}
+
+.thirdRollContainer{
+  max-width: 1120px;
+  height: 420px;
+  margin: .5rem auto;
+  display: flex;
+
+  .cardContent1{
+    height: 420px;
+    width: 340px;
+    display: flex;
+    padding: 1rem;
+
+    .cardCategories{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+    }
+  }
+
+  .cardContent2{
+    height: 420px;
+    width: 430px;
+    display: flex;
+    padding: 1rem;
+
+    .cardCatGraph{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+    }
+  }
+
+  .cardContent3{
+    height: 420px;
+    width: 350px;
+    display: flex;
+    padding: 1rem;
+
+    .cardRanking{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+    }
+  }
+}
+
+.fourthRollContainer{
+  max-width: 1120px;
+  height: 620px;
+  margin: .5rem auto;
+  display: flex;
+
+  .cardContent1{
+    height: 620px;
+    width: 560px;
+    display: flex;
+    padding: 1rem;
+
+    .cardBuyers{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+    }
+  }
+
+  .cardContent2{
+    height: 620px;
+    width: 560px;
+    display: flex;
+    padding: 1rem;
+
+    .cardSellers{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+    }
+  }
+}
+
+.baseContainer{
+  max-width: 1120px;
+  height: 2rem;
+  margin: 1rem auto;
+  text-align: center;
+
+  p{
+    font-weight: 500;
+    font-size: .8rem;
+  }
 }

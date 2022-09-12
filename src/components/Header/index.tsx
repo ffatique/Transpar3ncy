@@ -20,7 +20,7 @@ export function Header(){
   return (
     <header className={styles.headerContainer}>   
       <div className={styles.headerContent}>
-        <Image src={logo} alt="Logo Imbriani"/>
+        <Image src={logo} alt="Logo Transpar3ncy"/>
         <CgMenuBoxed id={styles.burguer} size={25} color="white" />
         <h2>Dashboard</h2>
         <nav>        
