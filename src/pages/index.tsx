@@ -3,6 +3,7 @@ import Head from 'next/head';
 import styles from '../styles/home.module.scss';
 import { FaCopy } from 'react-icons/fa';
 import { GoTriangleUp } from 'react-icons/go';
+import { BsCircleFill, BsCircleHalf, BsFillSquareFill } from 'react-icons/bs';
 import { db } from '../services/firebaseConnection';
 import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore, Timestamp } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -11,6 +12,16 @@ import Image from 'next/future/image';
 import binance from '../../public/images/binance.png';
 import ethereum from '../../public/images/ethereum.png';
 import polygon from '../../public/images/polygon.png';
+import whale from '../../public/images/whale.png';
+import killerwhale from '../../public/images/killerwhale.png';
+import octopus from '../../public/images/octopus.png';
+import shark from '../../public/images/shark.png';
+import dolphin from '../../public/images/dolphin.png';
+import mantaray from '../../public/images/mantaray.png';
+import turtle from '../../public/images/turtle.png';
+import crab from '../../public/images/crab.png';
+import seahorse from '../../public/images/seahorse.png';
+import prawn from '../../public/images/prawn.png';
 
 export default function Home(){
 
@@ -33,7 +44,7 @@ export default function Home(){
   return (
     <>
     <Head>
-        <title>Home</title>
+        <title>Dashboard {tokenName}</title>
     </Head>
 
     <main className={styles.mainContainer}>
@@ -97,6 +108,17 @@ export default function Home(){
               <div className={styles.underTopCard}>
                 <p>Actives and Inactives</p>
               </div>
+              <div className={styles.middleCard}>
+                <BsCircleFill size={14} color="var(--error)" />
+                <p>Inactives</p>
+              </div>
+              <div className={styles.GraphCard}>
+                <BsCircleHalf size={14} color="var(--success)" />
+              </div>
+              <div className={styles.baseCard}>
+                <p>Actives</p>
+                <BsCircleFill size={14} color="var(--success)" />
+              </div>
             </div>
           </div>
         </div>
@@ -112,6 +134,9 @@ export default function Home(){
             <div className={styles.underTopCard}>
               <p>Growth Month Wallets</p>
             </div>
+            <div className={styles.GraphCard}>
+              <p>Loading...........Graphic Month Wallets</p>
+            </div>
           </div>
         </div>
       </div>
@@ -126,6 +151,20 @@ export default function Home(){
             <div className={styles.underTopCard}>
               <p>Marine Scale</p>
             </div>
+            <div className={styles.listCard}>
+              <ul><p>Position MarineScale TotalSupply%</p>
+                <li><h4>1</h4><Image src={whale} alt="Whales"/><p>Whales</p><span>+20%</span></li>
+                <li><h4>2</h4><Image src={killerwhale} alt="Killer Whales"/><p>Killer Whales</p><span>18 - 19%</span></li>
+                <li><h4>3</h4><Image src={octopus} alt="Octopus"/><p>Octopus</p><span>16 - 17%</span></li>
+                <li><h4>4</h4><Image src={shark} alt="Sharks"/><p>Sharks</p><span>14 - 15%</span></li>
+                <li><h4>5</h4><Image src={dolphin} alt="Dolphins"/><p>Dolphins</p><span>12 - 13%</span></li>
+                <li><h4>6</h4><Image src={mantaray} alt="Manta Rays"/><p>Manta Rays</p><span>10 - 11%</span></li>
+                <li><h4>7</h4><Image src={turtle} alt="Turtles"/><p>Turtles</p><span>7 - 9%</span></li>
+                <li><h4>8</h4><Image src={crab} alt="Crabs"/><p>Crabs</p><span>4 - 6%</span></li>
+                <li><h4>9</h4><Image src={seahorse} alt="Seahorses"/><p>Seahorses</p><span>2 - 3%</span></li>
+                <li><h4>10</h4><Image src={prawn} alt="Prawns"/><p>Prawns</p><span>1%</span></li>
+              </ul>
+            </div>
           </div>
         </div>
         <div className={styles.cardContent2}>
@@ -133,6 +172,18 @@ export default function Home(){
             <div className={styles.topCard}>
               <h3>Categories Graphic</h3>
               <p>...</p>
+            </div>
+            <div className={styles.GraphCard}>
+              <BsCircleHalf size={14} color="var(--success)" />
+            </div>
+            <div className={styles.infoCard}>
+              <ul>
+                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Whales - 17%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Dolphins - 8%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--shark)" /><p>Sharks - 39%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--crab)" /><p>Crabs - 25%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--killerwhale)" /><p>Killer Whales - 11%</p></li>
+              </ul>
             </div>
           </div>
         </div>
@@ -142,8 +193,15 @@ export default function Home(){
               <h3>Wallets Ranking</h3>
               <p>...</p>
             </div>
-            <div className={styles.underTopCard}>
-              <p>Position</p>
+            <div className={styles.listRankingCard}>
+              <ul><p>Position Wallet <span>  &ensp; Value</span></p>
+                <li><h4>#1</h4><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$19000</span></li>
+                <li><h4>#2</h4><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$14700</span></li>
+                <li><h4>#3</h4><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$10700</span></li>
+                <li><h3>#4</h3><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$8750</span></li>
+                <li><h3>#5</h3><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$4530</span></li>
+                <li><h3>#6</h3><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$1750</span></li>
+              </ul>
             </div>
           </div>
         </div>

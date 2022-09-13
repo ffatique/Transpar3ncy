@@ -218,6 +218,58 @@
         margin-left: 1rem;
         border-radius: 1rem;
         background-color: var(--header);
+        display: flex;
+        flex-direction: column;
+
+        .middleCard{
+          height: 2rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          svg{
+            width: 1.5rem;
+            height: auto;
+            margin-right: 1rem;
+          }
+
+          p{
+            width: 1rem;
+            line-height: 2rem;
+            font-weight: 600;
+            text-align: right;
+            margin-right: 5rem;
+          }
+        }
+
+        .GraphCard{
+          height: 12rem;
+          width: 100%;
+          display: flex;
+        }
+
+        .baseCard{
+          height: 2rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+
+          svg{
+            width: 1.5rem;
+            height: auto;
+            margin-left: 3.8rem;
+          }
+
+          p{
+            width: 1rem;
+            line-height: 2rem;
+            font-weight: 600;
+            text-align: left;
+            margin-left: 1.5rem;
+          }
+        }
       }
     }
   }
@@ -253,6 +305,8 @@
 .underTopCard{
   margin-left: 1.5rem;
   margin-top: -1rem;
+  height: 1rem;
+  width: 100%;
 
   p{
     font-size: .75rem;
@@ -278,6 +332,19 @@
       width: 100%;
       border-radius: 1rem;
       background-color: var(--header);
+
+      .GraphCard{
+        height: 90%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 7rem;
+
+        p{
+          text-align: center;
+        }
+      }
     }
   }
   
@@ -300,6 +367,83 @@
       width: 100%;
       border-radius: 1rem;
       background-color: var(--header);
+
+      .underTopCard{
+        margin-left: 1.5rem;
+        margin-top: -1rem;
+        height: 1rem;
+        width: 100%;
+      
+        p{
+          height: 2rem;
+          margin-left: -.6rem;
+          width: 90%;
+          padding-left: .5rem;
+          padding-top: .35rem;
+          font-size: .75rem;
+          font-weight: normal;
+          color: var(--gray);
+          background-color: var(--back);
+          border-radius: .5rem;
+        }
+      }
+
+      .listCard{
+        height: 2rem;
+        width: 100%;
+        margin: 1.5rem;
+        margin-top: 2rem;
+
+        ul{
+          height: 100%;
+          width: 100%;
+
+          p{
+            word-spacing: 30px;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+          }
+
+          li{
+            width: 87%;
+            height: 1rem;
+            display: flex;
+            margin-top: .3rem;
+
+            p{
+              width: 2rem;
+              font-size: .9rem;
+              word-spacing: .5px;
+              white-space: nowrap;
+              text-align: left;
+            }
+
+            h4{
+              font-size: .9rem;
+              font-weight: normal;
+              color: var(--gray);
+              text-align: center;
+              margin-left: -3rem;
+            }
+
+            span{
+              font-size: .9rem;
+              font-weight: normal;
+              color: var(--gray);
+              text-align: right;
+            }
+
+            img{
+              margin-left: -1rem;
+              margin-top: .15rem;
+              margin-right: .5rem;
+              height: 15px;
+              width: auto;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -314,6 +458,51 @@
       width: 100%;
       border-radius: 1rem;
       background-color: var(--header);
+
+      .GraphCard{
+        height: 35%;
+        width: 100%;
+        margin-top: 1rem;
+        display: flex;
+      }
+
+      .infoCard{
+        height: 33%;
+        width: 100%;
+        margin-top: 1rem;
+        display: flex;
+        flex-wrap: wrap;
+
+        ul{
+          height: 100%;
+          width: 100%;
+          flex-wrap: wrap;
+
+          li{
+            width: 20%;
+            height: 1rem;
+            display: flex;
+            margin-top: .3rem;
+
+            p{
+              font-size: .9rem;
+              font-weight: normal;
+              color: var(--gray);
+              width: 2rem;
+              font-size: .9rem;
+              word-spacing: .5px;
+              white-space: nowrap;
+              text-align: left;
+            }
+
+            img{
+              height: 15px;
+              width: auto;
+              margin-left: 3rem;
+            }
+          }
+        }
+      }
     }
   }
 
@@ -328,6 +517,89 @@
       width: 100%;
       border-radius: 1rem;
       background-color: var(--header);
+
+      .listRankingCard{
+        height: 2rem;
+        width: 100%;
+        margin: 1.5rem;
+        margin-top: -1rem;
+
+        ul{
+          height: 100%;
+          width: 100%;
+          
+
+          p{
+            word-spacing: 30px;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+            margin-bottom: -1rem;
+
+            span{
+              word-spacing: 80px;
+            }
+          }
+
+          li{
+            width: 87%;
+            height: 2rem;
+            display: flex;
+            margin-top: 1rem;
+
+            h4{
+              padding-top: .2rem;
+              font-size: 1rem;
+              font-weight: 500;
+              color: var(--back);
+              text-align: center;
+              margin-left: -1rem;
+              background-color: white;
+              height: auto;
+              margin-left: .2rem;
+              width: 7rem;
+              border-radius: 50%;
+              margin-right: 1.5rem;
+            }
+
+            h3{
+              padding-top: .2rem;
+              font-size: 1rem;
+              font-weight: 500;
+              color: white;
+              text-align: center;
+              margin-left: -1.5rem;
+            }
+
+            p{
+              margin-top: .3rem;
+              margin-left: 1.1rem;
+              height: 2rem;
+              font-size: .9rem;
+              text-align: left;
+              color: white;
+              width: auto;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              cursor: pointer;
+
+              /*&:hover{
+                overflow: visible;
+              }*/
+            }
+
+            span{
+              margin-top: .3rem;
+              font-size: .9rem;
+              font-weight: 500;
+              color: white;
+              text-align: right;
+            }
+          }
+        }
+      }
+
     }
   }
 }
