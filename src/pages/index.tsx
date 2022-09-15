@@ -5,7 +5,7 @@ import { FaCopy } from 'react-icons/fa';
 import { GoTriangleUp } from 'react-icons/go';
 import { BsCircleFill, BsCircleHalf, BsFillSquareFill } from 'react-icons/bs';
 import { db } from '../services/firebaseConnection';
-import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore, Timestamp } from 'firebase/firestore';
+import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import Image from 'next/future/image';
@@ -44,7 +44,7 @@ export default function Home(){
   return (
     <>
     <Head>
-        <title>Dashboard {tokenName}</title>
+        <title>Dashboard MafaCoin</title>
     </Head>
 
     <main className={styles.mainContainer}>
