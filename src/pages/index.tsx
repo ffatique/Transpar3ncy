@@ -2,8 +2,9 @@ import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import styles from '../styles/home.module.scss';
 import { FaCopy } from 'react-icons/fa';
-import { GoTriangleUp } from 'react-icons/go';
-import { BsCircleFill, BsCircleHalf, BsFillSquareFill } from 'react-icons/bs';
+import { GoTriangleUp, GoTriangleDown } from 'react-icons/go';
+import { BsCircleFill, BsCircleHalf, BsFillSquareFill, BsGraphDown } from 'react-icons/bs';
+import { GiProgression } from 'react-icons/gi';
 import { db } from '../services/firebaseConnection';
 import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
@@ -94,7 +95,7 @@ export default function Home(){
               </div>
               <div className={styles.middleCard}>
                 <GoTriangleUp size={10} color="var(--success)"/>
-                <span>{variation} (24hours)</span>
+                <span>{variation} (24 hours)</span>
               </div>
               <div className={styles.baseCard}>
                 <h2>+ {wallets} Wallets</h2>
@@ -214,13 +215,134 @@ export default function Home(){
               <h3>Hot Buyers</h3>
               <p>...</p>
             </div>
+            <div className={styles.firtsPlace}>            
+              <div className={styles.cardWallet1}>
+                <div className={styles.topWallet}>
+                  <h2>#1<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><GiProgression size={10} color="white" /><span>$168,332.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleUp size={10} color="var(--success)"/>
+                    <span>8% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>BUY TOKENS</h4>
+                  <h2>134.004.000</h2>
+                </div>
+              </div>
+              <div className={styles.cardWallet1}>
+                <div id={styles.wallet1} className={styles.topWallet}>
+                  <h2>#2<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><GiProgression size={10} color="white" /><span>$118,150.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleUp size={10} color="var(--success)"/>
+                    <span>15% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>BUY TOKENS</h4>
+                  <h2>114.469.000</h2>
+                </div>
+              </div>
+            </div>
+            <div className={styles.secondsPlace}>
+              <div className={styles.cardWallet1}>
+                <div id={styles.wallet2} className={styles.topWallet}>
+                  <h2>#3<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><GiProgression size={10} color="white" /><span>$78,842.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleUp size={10} color="var(--success)"/>
+                    <span>32% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>BUY TOKENS</h4>
+                  <h2>85.406.562</h2>
+                </div>
+              </div>
+              <div className={styles.cardWallet1}>
+                <div id={styles.wallet3} className={styles.topWallet}>
+                  <h2>#4<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><GiProgression size={10} color="white" /><span>$42,590.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleUp size={10} color="var(--success)"/>
+                    <span>4,5% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>BUY TOKENS</h4>
+                  <h2>52.090.9057</h2>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
+
         <div className={styles.cardContent2}>
           <div className={styles.cardSellers}>
             <div className={styles.topCard}>
               <h3>Hot Sellers</h3>
               <p>...</p>
+            </div>
+            <div className={styles.firtsPlace}>            
+              <div className={styles.cardWallet1}>
+                <div className={styles.topWallet}>
+                  <h2>#1<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><BsGraphDown size={10} color="white" /><span>$-158,332.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleDown size={10} color="var(--error)"/>
+                    <span>7% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>SELL TOKENS</h4>
+                  <h2>124.004.000</h2>
+                </div>
+              </div>
+              <div className={styles.cardWallet1}>
+                <div id={styles.wallet1} className={styles.topWallet}>
+                  <h2>#2<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><BsGraphDown size={10} color="white" /><span>$-98,150.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleDown size={10} color="var(--error)"/>
+                    <span>18% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>SELL TOKENS</h4>
+                  <h2>94.469.000</h2>
+                </div>
+              </div>
+            </div>
+            <div className={styles.secondsPlace}>
+              <div className={styles.cardWallet1}>
+                <div id={styles.wallet2} className={styles.topWallet}>
+                  <h2>#3<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><BsGraphDown size={10} color="white" /><span>$-28,842.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleDown size={10} color="var(--error)"/>
+                    <span>22% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>SELL TOKENS</h4>
+                  <h2>35.406.562</h2>
+                </div>
+              </div>
+              <div className={styles.cardWallet1}>
+                <div id={styles.wallet3} className={styles.topWallet}>
+                  <h2>#4<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <p><BsGraphDown size={10} color="white" /><span>$-12,590.00</span></p>
+                  <div className={styles.middleCard}>
+                    <GoTriangleDown size={10} color="var(--error)"/>
+                    <span>3% (24 hours)</span>
+                  </div>
+                </div>
+                <div className={styles.bottomWallet}>
+                  <h4>SELL TOKENS</h4>
+                  <h2>22.090.9057</h2>
+                </div>
+              </div>
             </div>
           </div>  
         </div>
