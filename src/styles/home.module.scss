@@ -299,6 +299,10 @@
     margin-right: .2rem;
     writing-mode: vertical-rl;
     cursor: pointer;
+
+    abbr{
+      color: var(--header);
+    }
   }
 }
 
@@ -654,13 +658,13 @@
         padding-top: .5rem;
         display: flex;
 
-        h3{
+        p{
           font-weight: 600;
           margin-top: -1rem;
           font-size: 1.5rem;
-          margin-left: 1.5rem;
+          margin-left:1.5rem;
 
-          p{
+          span{
             height: 2rem;
             font-weight: 400;
             font-size: .9rem;
@@ -670,6 +674,7 @@
             white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            margin-left: -5.4rem;
           }
         }
       }

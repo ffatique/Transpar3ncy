@@ -24,23 +24,43 @@ import crab from '../../public/images/crab.png';
 import seahorse from '../../public/images/seahorse.png';
 import prawn from '../../public/images/prawn.png';
 
-export default function Home(){
+const axios = require('axios').default;
 
-  const [adminRule, setAdminRule] = useState('');
+interface Token{
+  holders: string,
+  nameT: string,
+  symbolT: string,
+  decimalsT: string,
+  typeT: string,
+  totalT: string,
+  priceT: string,
+}
 
+export default function Home({holders, nameT, symbolT, decimalsT, typeT, totalT, priceT }: Token){
   const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
-  const tokenName = "MafaCoin";
-  const symbol = "MAFA";
-  const decimals = "18";
-  const totalSupply = "1,000,000,000";
-  const marketCap = "$1,365,267";
   const creator = "0xe341d141133d82def0ee59a3d9365fd2942eeb63";
-  const variation = "8%";
-  const wallets = "1280";
+
+  const [tokenName, setTokenName] = useState("MafaCoin");
+  const [symbol, setSymbol] = useState("MAFA");
+  const [decimals, setDecimals] = useState("18");
+  const [totalSupply, setTotalSupply] = useState("1,000,000,000");
+  const [marketCap, setMarketCap] = useState(0);
+  const [variation, setVariation] = useState("8%");
+  const [wallets, setWallets] = useState("1280");
  
   useEffect(()=>{
 
-  },[]);
+    setTokenName(nameT)
+    setSymbol(symbolT)
+    setDecimals(decimalsT)
+    setTotalSupply(totalT)
+
+    const market = parseFloat(priceT) * parseFloat(totalT)
+    setMarketCap(market)
+    setVariation("8%")
+    setWallets("1280")
+
+  },[decimalsT, nameT, priceT, symbolT, totalT]);
  
   return (
     <>
@@ -55,7 +75,7 @@ export default function Home(){
           <div className={styles.cardToken}>
             <div className={styles.topCard}>
               <h3>Token Details</h3>
-              <p>...</p>
+              <p>...<abbr title="Token Details">.</abbr></p>
             </div>
             <div className={styles.middleCard}>
               <a><Image src={binance} alt="Binance"/></a>
@@ -91,7 +111,7 @@ export default function Home(){
             <div className={styles.cardWallets}>
               <div className={styles.topCard}>
                 <h3>Unique Wallets</h3>
-                <p>...</p>
+                <p>...<abbr title="Number of new wallets that purchased the Token in the last 24 hours">.</abbr></p>
               </div>
               <div className={styles.middleCard}>
                 <GoTriangleUp size={10} color="var(--success)"/>
@@ -104,7 +124,7 @@ export default function Home(){
             <div className={styles.cardHolders}>
               <div className={styles.topCard}>
                 <h3>Holders</h3>
-                <p>...</p>
+                <p>...<abbr title="Actives: Holders who kept their positions and Inactives: Holders who sold all their Tokens">.</abbr></p>
               </div>
               <div className={styles.underTopCard}>
                 <p>Actives and Inactives</p>
@@ -130,7 +150,7 @@ export default function Home(){
           <div className={styles.cardGrowth}>
             <div className={styles.topCard}>
               <h3>Growth Graphic</h3>
-              <p>...</p>
+              <p>...<abbr title="Monthly growth of new wallets that bought the token">.</abbr></p>
             </div>
             <div className={styles.underTopCard}>
               <p>Growth Month Wallets</p>
@@ -147,7 +167,7 @@ export default function Home(){
           <div className={styles.cardCategories}>
             <div className={styles.topCard}>
               <h3>Categories</h3>
-              <p>...</p>
+              <p>...<abbr title="Marine scale model information">.</abbr></p>
             </div>
             <div className={styles.underTopCard}>
               <p>Marine Scale</p>
@@ -172,7 +192,7 @@ export default function Home(){
           <div className={styles.cardCatGraph}>
             <div className={styles.topCard}>
               <h3>Categories Graphic</h3>
-              <p>...</p>
+              <p>...<abbr title="Token represented by each range of the scale">.</abbr></p>
             </div>
             <div className={styles.GraphCard}>
               <BsCircleHalf size={14} color="var(--success)" />
@@ -192,7 +212,7 @@ export default function Home(){
           <div className={styles.cardRanking}>
             <div className={styles.topCard}>
               <h3>Wallets Ranking</h3>
-              <p>...</p>
+              <p>...<abbr title="Wallet ranking by number of tokens in holding">.</abbr></p>
             </div>
             <div className={styles.listRankingCard}>
               <ul><p>Position Wallet <span>  &ensp; Value</span></p>
@@ -213,12 +233,12 @@ export default function Home(){
           <div className={styles.cardBuyers}>
             <div className={styles.topCard}>
               <h3>Hot Buyers</h3>
-              <p>...</p>
+              <p>...<abbr title="Wallets that bought the most tokens in the last 24 hours">.</abbr></p>
             </div>
             <div className={styles.firtsPlace}>            
               <div className={styles.cardWallet1}>
                 <div className={styles.topWallet}>
-                  <h2>#1<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#1<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>$168,332.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
@@ -232,7 +252,7 @@ export default function Home(){
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet1} className={styles.topWallet}>
-                  <h2>#2<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#2<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>$118,150.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
@@ -248,7 +268,7 @@ export default function Home(){
             <div className={styles.secondsPlace}>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet2} className={styles.topWallet}>
-                  <h2>#3<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#3<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>$78,842.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
@@ -262,7 +282,7 @@ export default function Home(){
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet3} className={styles.topWallet}>
-                  <h2>#4<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#4<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>$42,590.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
@@ -282,12 +302,12 @@ export default function Home(){
           <div className={styles.cardSellers}>
             <div className={styles.topCard}>
               <h3>Hot Sellers</h3>
-              <p>...</p>
+              <p>...<abbr title="Wallets that sold the most tokens in the last 24 hours">.</abbr></p>
             </div>
             <div className={styles.firtsPlace}>            
               <div className={styles.cardWallet1}>
                 <div className={styles.topWallet}>
-                  <h2>#1<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#1<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>$-158,332.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
@@ -301,7 +321,7 @@ export default function Home(){
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet1} className={styles.topWallet}>
-                  <h2>#2<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#2<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>$-98,150.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
@@ -317,7 +337,7 @@ export default function Home(){
             <div className={styles.secondsPlace}>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet2} className={styles.topWallet}>
-                  <h2>#3<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#3<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>$-28,842.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
@@ -331,7 +351,7 @@ export default function Home(){
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet3} className={styles.topWallet}>
-                  <h2>#4<h3>Wallet:<p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p></h3></h2>
+                  <h2>#4<p>Wallet:<span>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>$-12,590.00</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
@@ -359,9 +379,42 @@ export default function Home(){
 
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-    
+  const contract = '0x6dd60afb2586d31bf390450adf5e6a9659d48c4a';
+
+  const getHolders = await axios.get('https://api.bscscan.com/api?module=token&action=tokenholderlist', {
+    params:{
+      contractaddress: contract,
+      apikey: process.env.BSC_API_KEY
+    }
+  })
+
+  const holders = getHolders.data.result
+
+  const infoToken = await axios.get('https://api.bscscan.com/api?module=token&action=tokeninfot', {
+    params:{
+      contractaddress: contract,
+      apikey: process.env.BSC_API_KEY
+    }
+  })
+
+  const infoResult = infoToken.data.result
+
+  const nameT = infoResult.tokenName || null
+  const symbolT = infoToken.data.result.symbol || null
+  const decimalsT = infoToken.data.result.divisor || null
+  const typeT = infoToken.data.result.tokenType || null
+  const totalT = infoToken.data.result.totalSupply || null
+  const priceT = infoToken.data.result.tokenPriceUSD || null
+      
   return{
     props: {
+      holders,
+      nameT,
+      symbolT,
+      decimalsT,
+      typeT,
+      totalT,
+      priceT,
     }
   }
 

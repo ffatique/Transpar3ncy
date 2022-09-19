@@ -9,13 +9,6 @@ import Image from 'next/future/image';
 import logo from '../../../public/images/Logo.png';
 
 export function Header(){
-
-  const [totalProduzir, setTotalProduzir] = useState('');
-
-  useEffect(() =>{
-
-
-  },[]);
   
   return (
     <header className={styles.headerContainer}>   
