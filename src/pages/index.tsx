@@ -8,7 +8,9 @@ import { GiProgression } from 'react-icons/gi';
 import { db } from '../services/firebaseConnection';
 import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { format } from 'date-fns';
+import { format, startOfYesterday } from 'date-fns';
+const axios = require('axios');
+const puppeteer = require('puppeteer');
 import Image from 'next/future/image';
 import binance from '../../public/images/binance.png';
 import ethereum from '../../public/images/ethereum.png';
@@ -24,43 +26,77 @@ import crab from '../../public/images/crab.png';
 import seahorse from '../../public/images/seahorse.png';
 import prawn from '../../public/images/prawn.png';
 
-const axios = require('axios').default;
-
+interface List{
+  position: string,
+  address: string,
+  tokens: string,
+  percent?: string
+}
+interface ListH{
+  sender: string,
+  receiver: string,
+  amount: string,
+}
 interface Token{
-  holders: string,
-  nameT: string,
-  symbolT: string,
-  decimalsT: string,
-  typeT: string,
-  totalT: string,
-  priceT: string,
+  details: {
+    name: string,
+    value: string,
+    creator: string,
+  },
+  info: {
+    symbol: string,
+    totalSupply: string,
+    marketCap: string,
+    decimals: string,
+    holders: string,
+  },
+  totalUniques: {
+    uniqueWallets: string,
+  },
+  lastUnique: {
+    lastDayUniqueWallets: string,
+  },
+  categoryWallets: List[],
+  rankingWallets: List[],
+  hotWallets: ListH[],
 }
 
-export default function Home({holders, nameT, symbolT, decimalsT, typeT, totalT, priceT }: Token){
+export default function Home({ details, info, totalUniques, lastUnique, categoryWallets, rankingWallets, hotWallets }: Token){
   const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
-  const creator = "0xe341d141133d82def0ee59a3d9365fd2942eeb63";
 
-  const [tokenName, setTokenName] = useState("MafaCoin");
-  const [symbol, setSymbol] = useState("MAFA");
-  const [decimals, setDecimals] = useState("18");
-  const [totalSupply, setTotalSupply] = useState("1,000,000,000");
-  const [marketCap, setMarketCap] = useState(0);
-  const [variation, setVariation] = useState("8%");
-  const [wallets, setWallets] = useState("1280");
+  const [tokenName, setTokenName] = useState("");
+  const [symbol, setSymbol] = useState("");
+  const [decimals, setDecimals] = useState("");
+  const [totalSupply, setTotalSupply] = useState("");
+  const [marketCap, setMarketCap] = useState('');
+  const [variation, setVariation] = useState("");
+  const [wallets, setWallets] = useState('');
+  const [creator, setCreator] = useState('');
+  const [valueToken, setValueToken] = useState('');
+  const [holdersActives, setHoldersActives] = useState('');
+  const [totalWallets, setTotalWallets] = useState('');
+  const [categoryList, setCategoryList] = useState(categoryWallets);
+  const [rankingList, setRankingList] = useState(rankingWallets);
+  const [hotList, setHotList] = useState(hotWallets);
  
   useEffect(()=>{
 
-    setTokenName(nameT)
-    setSymbol(symbolT)
-    setDecimals(decimalsT)
-    setTotalSupply(totalT)
+    setTokenName(details.name);
+    setValueToken(details.value);
+    setCreator(details.creator);
+    setSymbol(info.symbol);
+    setTotalSupply(info.totalSupply);
+    setMarketCap(info.marketCap);
+    setDecimals(info.decimals);
+    setHoldersActives(info.holders);
+    setTotalWallets(totalUniques.uniqueWallets);
+    setWallets(lastUnique.lastDayUniqueWallets);
+    setCategoryList(categoryWallets);
+    setRankingList(rankingWallets);
+    setHotList(hotWallets);
 
-    const market = parseFloat(priceT) * parseFloat(totalT)
-    setMarketCap(market)
-    setVariation("8%")
-    setWallets("1280")
-
-  },[decimalsT, nameT, priceT, symbolT, totalT]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  },[]);
  
   return (
     <>
@@ -380,41 +416,178 @@ export default function Home({holders, nameT, symbolT, decimalsT, typeT, totalT,
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const contract = '0x6dd60afb2586d31bf390450adf5e6a9659d48c4a';
+  const tradePair =	'0xbb4cdb9cbd36b01bd1cbaebf2de08d9173bc095c';
 
-  const getHolders = await axios.get('https://api.bscscan.com/api?module=token&action=tokenholderlist', {
-    params:{
-      contractaddress: contract,
-      apikey: process.env.BSC_API_KEY
-    }
-  })
+  async function getDetails() {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://bscscan.com/address/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
+  
+    const token = await page.evaluate(() =>{
+      return{
+        name: document.querySelector('#ContentPlaceHolder1_tr_tokeninfo > div > div.col-md-8 > a')?.innerHTML,
+        value: document.querySelector('#ContentPlaceHolder1_tr_tokeninfo > div > div.col-md-8 > span')?.innerHTML,
+        creator: document.querySelector('#ContentPlaceHolder1_trContract > div > div.col-md-8 > a')?.innerHTML,
+      };
+    });
+  
+    await browser.close();
+    return token
+  };
+  
+  async function getInfo() {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://bscscan.com/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
+  
+    const token = await page.evaluate(() =>{
+      return{
+        symbol: document.querySelector('#ContentPlaceHolder1_divSummary > div.row.mb-4 > div.col-md-6.mb-3.mb-md-0 > div > div.card-body > div.row.align-items-center > div.col-md-8.font-weight-medium > b')?.innerHTML,
+        totalSupply: document.querySelector('#ContentPlaceHolder1_divSummary > div.row.mb-4 > div.col-md-6.mb-3.mb-md-0 > div > div.card-body > div.row.align-items-center > div.col-md-8.font-weight-medium > span.hash-tag.text-truncate')?.innerHTML,
+        marketCap: document.querySelector('#pricebutton')?.innerHTML,
+        decimals: document.querySelector('#ContentPlaceHolder1_trDecimals > div > div.col-md-8')?.innerHTML,
+        holders: document.querySelector('#ContentPlaceHolder1_tr_tokenHolders > div > div.col-md-8 > div > div')?.innerHTML,
+      };
+    });
+  
+    await browser.close();
+    return token
+  };
+  
+  async function getTotalWallets() {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
+  
+    const token = await page.evaluate(() =>{
+      return{
+        uniqueWallets: document.querySelector('body > div:nth-child(4) > div:nth-child(5) > div > div:nth-child(3) > div > div.card-body > div > div:nth-child(1) > div > div.table-responsive > table > tbody > tr:nth-child(3) > td:nth-child(2) > span')?.innerHTML,
+      };
+    });
+  
+    await browser.close();
+    return token
+  };
+  
+  async function getLastWallets() {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a/receivers');
+    
+    await page.click('#reportrange > span');
+    await page.waitForTimeout(100);
+  
+    await page.click('body > div.daterangepicker.ltr.show-ranges.opensleft > div.ranges > ul > li:nth-child(2)');
+    await page.waitForTimeout(250);
 
-  const holders = getHolders.data.result
-
-  const infoToken = await axios.get('https://api.bscscan.com/api?module=token&action=tokeninfot', {
-    params:{
-      contractaddress: contract,
-      apikey: process.env.BSC_API_KEY
-    }
-  })
-
-  const infoResult = infoToken.data.result
-
-  const nameT = infoResult.tokenName || null
-  const symbolT = infoToken.data.result.symbol || null
-  const decimalsT = infoToken.data.result.divisor || null
-  const typeT = infoToken.data.result.tokenType || null
-  const totalT = infoToken.data.result.totalSupply || null
-  const priceT = infoToken.data.result.tokenPriceUSD || null
+    await page.click('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(3) > g:nth-child(3)');
+    await page.waitForTimeout(100);
+    const token = await page.evaluate(() =>{
+      return{
+        lastDayUniqueWallets: document.querySelector('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(5) > g > g:nth-child(3) > text:nth-child(2)')?.innerHTML,
+      };
+    });
+  
+    await browser.close();
+    return token
+  };
+  
+  async function getCategoryWallets() {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=50');
+    
+    const walletList = await page.evaluate(() => {
+        
+      const nodeList = document.querySelectorAll('#ContentPlaceHolder1_resultrows > table > tbody > tr');
+      const walletsArray = [...nodeList]
+  
+      const list = walletsArray.map( wallet => ({
+        position: wallet.querySelector('td')?.innerHTML,
+        address: wallet.querySelector('a')?.innerHTML,
+        tokens: wallet.querySelector('td:nth-child(3)')?.innerHTML,
+        percent: wallet.querySelector('td:nth-child(4)')?.innerHTML,
+      }))
+      return list
+    })
+    
+    await browser.close();
+    return walletList
+  };
+  
+  async function getRankingWallets() {
+    const browser = await puppeteer.launch();
+    const page = await browser.newPage();
+    await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=10');
+    
+    const walletList = await page.evaluate(() => {
+        
+      const nodeList = document.querySelectorAll('#ContentPlaceHolder1_resultrows > table > tbody > tr');
+      const walletsArray = [...nodeList]
+  
+      const list = walletsArray.map( wallet => ({
+        position: wallet.querySelector('td')?.innerHTML,
+        address: wallet.querySelector('a')?.innerHTML,
+        tokens: wallet.querySelector('td:nth-child(3)')?.innerHTML,
+      }))
+      return list
+    })
+    
+    await browser.close();
+    return walletList
+  };
+  
+  async function getHotWallerts(){
+    const startYesterday = startOfYesterday();
+    const formated = format(startYesterday,'yyyy-MM-dd');
       
+    var data = JSON.stringify({
+      "query": "query ($network: EthereumNetwork!, $token: String!, $limit: Int!, $offset: Int!, $from: ISO8601DateTime, $till: ISO8601DateTime) {\n  ethereum(network: $network) {\n    transfers(\n      options: {desc: \"amount\", limit: $limit, offset: $offset}\n      date: {since: $from, till: $till}\n      amount: {gt: 0}\n      currency: {is: $token}\n    ) {\n      block {\n        timestamp {\n          time(format: \"%Y-%m-%d %H:%M:%S\")\n        }\n        height\n      }\n      sender {\n        address\n      }\n      receiver {\n        address\n      }\n      transaction {\n        hash\n      }\n      amount\n    }\n  }\n}\n",
+      "variables": `{\n  \"limit\": 10,\n  \"offset\": 0,\n  \"network\": \"bsc\",\n  \"token\": \"0x6dd60afb2586d31bf390450adf5e6a9659d48c4a\",\n  \"from\": \"${formated}\",\n  \"till\": \"${formated}T23:59:59\",\n  \"dateFormat\": \"%Y-%m-%d\"\n}`
+    });
+  
+    var config = {
+      method: 'post',
+      url: 'https://graphql.bitquery.io',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'X-API-KEY': 'BQY8tkWK5F4ilrr7FxthT8BVeqTy9hHR'
+      },
+      data : data
+    };
+  
+    const listHot = await axios(config)
+    .then(function (response: any) {
+      const list = response.data.data.ethereum.transfers.map( (wallet: any) =>({
+        sender: wallet.sender,
+        receiver: wallet.receiver,
+        amount: wallet.amount,
+    }))
+      return list
+    })
+    .catch(function (error: any) {
+      console.log(error);
+    });
+    return listHot
+  };
+    
+  const details = await getDetails();
+  const info = await getInfo();
+  const totalUniques = await getTotalWallets();
+  const lastUnique = await getLastWallets();
+  const categoryWallets = await getCategoryWallets();
+  const rankingWallets = await getRankingWallets();
+  const hotWallets = await getHotWallerts();
+        
   return{
     props: {
-      holders,
-      nameT,
-      symbolT,
-      decimalsT,
-      typeT,
-      totalT,
-      priceT,
+      details,
+      info,
+      totalUniques,
+      lastUnique,
+      categoryWallets,
+      rankingWallets,
+      hotWallets,
     }
   }
 
