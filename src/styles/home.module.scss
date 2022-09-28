@@ -572,17 +572,19 @@
               font-weight: 500;
               color: white;
               text-align: center;
-              margin-left: -1.5rem;
+              margin-left: -1.8rem;
             }
 
             p{
+              word-spacing: 5px;
               margin-top: .3rem;
-              margin-left: 1.1rem;
+              margin-left: 0.8rem;
               height: 2rem;
               font-size: .9rem;
               text-align: left;
               color: white;
-              width: auto;
+              font-variant-numeric: tabular-nums;
+              width: 100%;
               white-space: nowrap;
               overflow: hidden;
               text-overflow: ellipsis;
@@ -594,11 +596,16 @@
             }
 
             span{
-              margin-top: .3rem;
-              font-size: .9rem;
+              margin-left: .4rem;
+              margin-top: .4rem;
+              font-size: .8rem;
               font-weight: 500;
+              font-variant-numeric: tabular-nums;
               color: white;
               text-align: right;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
             }
           }
         }

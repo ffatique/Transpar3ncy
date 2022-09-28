@@ -69,7 +69,6 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const [decimals, setDecimals] = useState("");
   const [totalSupply, setTotalSupply] = useState("");
   const [marketCap, setMarketCap] = useState('');
-  const [variation, setVariation] = useState("");
   const [wallets, setWallets] = useState('');
   const [creator, setCreator] = useState('');
   const [valueToken, setValueToken] = useState('');
@@ -78,22 +77,37 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const [categoryList, setCategoryList] = useState(categoryWallets);
   const [rankingList, setRankingList] = useState(rankingWallets);
   const [hotList, setHotList] = useState(hotWallets);
- 
+  const [price, setPrice] = useState('');
+
+  const inactives = parseInt(totalWallets) - parseInt(holdersActives)
+  const variation = (parseInt(wallets) / parseInt(totalWallets)).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})
+  
+  const buyerList = hotList.map( wallet => ({
+    buyer: wallet.receiver,
+    amount: wallet.amount,
+  }))
+
+  const sellerList = hotList.map( wallet => ({
+    seller: wallet.sender,
+    amount: wallet.amount,
+  }))
+
   useEffect(()=>{
 
-    setTokenName(details.name);
+    setTokenName(details.name.split("(",1).toString());
     setValueToken(details.value);
     setCreator(details.creator);
     setSymbol(info.symbol);
     setTotalSupply(info.totalSupply);
     setMarketCap(info.marketCap);
     setDecimals(info.decimals);
-    setHoldersActives(info.holders);
+    setHoldersActives(info.holders.split("address",1).toString().replace(",",""));
     setTotalWallets(totalUniques.uniqueWallets);
     setWallets(lastUnique.lastDayUniqueWallets);
     setCategoryList(categoryWallets);
     setRankingList(rankingWallets);
     setHotList(hotWallets);
+    setPrice(details.value.toString().replace("(","").replace(")","").replace("@","").replace("$",""));
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
@@ -159,7 +173,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.cardHolders}>
               <div className={styles.topCard}>
-                <h3>Holders</h3>
+                <h3>Total Uniques Wallets: {totalWallets}</h3>
                 <p>...<abbr title="Actives: Holders who kept their positions and Inactives: Holders who sold all their Tokens">.</abbr></p>
               </div>
               <div className={styles.underTopCard}>
@@ -167,13 +181,13 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
               <div className={styles.middleCard}>
                 <BsCircleFill size={14} color="var(--error)" />
-                <p>Inactives</p>
+                <p>Inactives {inactives}</p>
               </div>
               <div className={styles.GraphCard}>
                 <BsCircleHalf size={14} color="var(--success)" />
               </div>
               <div className={styles.baseCard}>
-                <p>Actives</p>
+                <p>Actives {holdersActives}</p>
                 <BsCircleFill size={14} color="var(--success)" />
               </div>
             </div>
@@ -252,13 +266,17 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.listRankingCard}>
               <ul><p>Position Wallet <span>  &ensp; Value</span></p>
-                <li><h4>#1</h4><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$19000</span></li>
-                <li><h4>#2</h4><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$14700</span></li>
-                <li><h4>#3</h4><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$10700</span></li>
-                <li><h3>#4</h3><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$8750</span></li>
-                <li><h3>#5</h3><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$4530</span></li>
-                <li><h3>#6</h3><p>0xA0307680088080ea92DC91fA399283Ebd44d7Fbd</p><span>$1750</span></li>
-              </ul>
+              {rankingList.slice(0,3).map((wallet, index)=>{
+                return(
+                  <li key={index}><h4>#{wallet.position}</h4><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
+                )
+              })}
+              {rankingList.slice(3,6).map((wallet, index)=>{
+                return(
+                  <li key={index}><h3>#{wallet.position}</h3><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
+                )
+              })}
+              </ul>   
             </div>
           </div>
         </div>
@@ -470,18 +488,14 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   };
   
   async function getLastWallets() {
+    const startYesterday = startOfYesterday();
+    const formated = format(startYesterday,'yyyy-MM-dd');
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a/receivers');
+    await page.goto(`https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a/receivers?from=${formated}&till=${formated}`);
     
-    await page.click('#reportrange > span');
-    await page.waitForTimeout(100);
-  
-    await page.click('body > div.daterangepicker.ltr.show-ranges.opensleft > div.ranges > ul > li:nth-child(2)');
-    await page.waitForTimeout(250);
-
-    await page.click('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(3) > g:nth-child(3)');
-    await page.waitForTimeout(100);
+    await page.click('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(3) > g:nth-child(3) > path');
+    await page.waitForTimeout(50);
     const token = await page.evaluate(() =>{
       return{
         lastDayUniqueWallets: document.querySelector('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(5) > g > g:nth-child(3) > text:nth-child(2)')?.innerHTML,
