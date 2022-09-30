@@ -9,22 +9,20 @@ import { db } from '../services/firebaseConnection';
 import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { format, startOfYesterday } from 'date-fns';
-const axios = require('axios');
-const puppeteer = require('puppeteer');
 import Image from 'next/future/image';
 import binance from '../../public/images/binance.png';
 import ethereum from '../../public/images/ethereum.png';
 import polygon from '../../public/images/polygon.png';
 import whale from '../../public/images/whale.png';
 import killerwhale from '../../public/images/killerwhale.png';
-import octopus from '../../public/images/octopus.png';
 import shark from '../../public/images/shark.png';
 import dolphin from '../../public/images/dolphin.png';
-import mantaray from '../../public/images/mantaray.png';
 import turtle from '../../public/images/turtle.png';
 import crab from '../../public/images/crab.png';
 import seahorse from '../../public/images/seahorse.png';
-import prawn from '../../public/images/prawn.png';
+
+const axios = require('axios');
+const puppeteer = require('puppeteer');
 
 interface List{
   position: string,
@@ -36,6 +34,7 @@ interface ListH{
   sender: string,
   receiver: string,
   amount: number,
+  balanceOf: string,
 }
 interface Token{
   details: {
@@ -78,9 +77,19 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const [rankingList, setRankingList] = useState(rankingWallets);
   const [hotList, setHotList] = useState(hotWallets);
   const [price, setPrice] = useState('');
-
+    
   const inactives = parseInt(totalWallets) - parseInt(holdersActives)
   const variation = (parseInt(wallets) / parseInt(totalWallets)).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})
+
+  function compare(a: { amount: number; }, b: { amount: number}) {
+    if ( a.amount > b.amount ){
+      return -1;
+    }
+    if ( a.amount < b.amount ){
+      return 1;
+    }
+    return 0;
+  }
 
   const buyerList = hotList.map( wallet => {
     
@@ -89,8 +98,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         buyer: wallet.receiver,
         amount: wallet.amount,
       } 
-    } 
-  }).sort() 
+    } else {
+      return {
+        buyer: wallet.receiver,
+        amount: 0,
+      } 
+    }
+
+  }).sort(compare) 
 
   const sellerList = hotList.map( wallet => {
     
@@ -99,13 +114,17 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         seller: wallet.sender,
         amount: wallet.amount,
       } 
-    } 
-  }).sort() 
-
-  console.log(buyerList)
+    } else {
+      return {
+        seller: wallet.sender,
+        amount: 0,
+      } 
+    }
+  }).sort(compare)
 
   useEffect(()=>{
 
+    
     setTokenName(details.name.split("(",1).toString());
     setCreator(details.creator);
     setSymbol(info.symbol);
@@ -119,7 +138,6 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     setRankingList(rankingWallets);
     setHotList(hotWallets);
     setPrice(details.value.toString().replace("(","").replace(")","").replace("@","").replace("$",""));
-
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
  
@@ -235,16 +253,13 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.listCard}>
               <ul><p>Position MarineScale TotalSupply%</p>
-                <li><h4>1</h4><Image src={whale} alt="Whales"/><p>Whales</p><span>+20%</span></li>
-                <li><h4>2</h4><Image src={killerwhale} alt="Killer Whales"/><p>Killer Whales</p><span>18 - 19%</span></li>
-                <li><h4>3</h4><Image src={octopus} alt="Octopus"/><p>Octopus</p><span>16 - 17%</span></li>
-                <li><h4>4</h4><Image src={shark} alt="Sharks"/><p>Sharks</p><span>14 - 15%</span></li>
-                <li><h4>5</h4><Image src={dolphin} alt="Dolphins"/><p>Dolphins</p><span>12 - 13%</span></li>
-                <li><h4>6</h4><Image src={mantaray} alt="Manta Rays"/><p>Manta Rays</p><span>10 - 11%</span></li>
-                <li><h4>7</h4><Image src={turtle} alt="Turtles"/><p>Turtles</p><span>7 - 9%</span></li>
-                <li><h4>8</h4><Image src={crab} alt="Crabs"/><p>Crabs</p><span>4 - 6%</span></li>
-                <li><h4>9</h4><Image src={seahorse} alt="Seahorses"/><p>Seahorses</p><span>2 - 3%</span></li>
-                <li><h4>10</h4><Image src={prawn} alt="Prawns"/><p>Prawns</p><span>1%</span></li>
+                <li><h4>1</h4><Image src={whale} alt="Humpback Whales"/><p>Humpback Whales</p><span>+20%</span></li>
+                <li><h4>2</h4><Image src={killerwhale} alt="Whales"/><p>Whales</p><span>18 - 19%</span></li>
+                <li><h4>3</h4><Image src={shark} alt="Sharks"/><p>Sharks</p><span>14 - 15%</span></li>
+                <li><h4>4</h4><Image src={dolphin} alt="Dolphins"/><p>Dolphins</p><span>12 - 13%</span></li>
+                <li><h4>5</h4><Image src={turtle} alt="Turtles"/><p>Turtles</p><span>7 - 9%</span></li>
+                <li><h4>6</h4><Image src={crab} alt="Crabs"/><p>Crabs</p><span>4 - 6%</span></li>
+                <li><h4>7</h4><Image src={seahorse} alt="Sardines"/><p>Sardines</p><span>2 - 3%</span></li>
               </ul>
             </div>
           </div>
@@ -260,11 +275,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.infoCard}>
               <ul>
-                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Whales - 17%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Dolphins - 8%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Humpback Whales - 17%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Whales - 8%</p></li>
                 <li><BsFillSquareFill size={10} color="var(--shark)" /><p>Sharks - 39%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--crab)" /><p>Crabs - 25%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--killerwhale)" /><p>Killer Whales - 11%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--crab)" /><p>Dolphins - 25%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--killerwhale)" /><p>Turtles - 11%</p></li>
               </ul>
             </div>
           </div>
@@ -277,14 +292,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.listRankingCard}>
               <ul><p>Position Wallet <span>  &ensp; Value</span></p>
-              {rankingList.slice(0,3).map((wallet, index)=>{
+              {rankingList.slice(1,4).map((wallet, index)=>{
                 return(
-                  <li key={index}><h4>#{wallet.position}</h4><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
+                  <li key={index}><h4>#{parseInt(wallet.position) - 1}</h4><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
                 )
               })}
-              {rankingList.slice(3,6).map((wallet, index)=>{
+              {rankingList.slice(4,7).map((wallet, index)=>{
                 return(
-                  <li key={index}><h3>#{wallet.position}</h3><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
+                  <li key={index}><h3>#{parseInt(wallet.position) - 1}</h3><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
                 )
               })}
               </ul>   
@@ -303,11 +318,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             <div className={styles.firtsPlace}>            
               <div className={styles.cardWallet1}>
                 <div className={styles.topWallet}>
-                  <h2>#1<p>Wallet:<span>{buyerList[0]?.buyer}</span></p></h2>
+                  <h2><a>#1</a><p>Wallet:<span>{buyerList[0]?.buyer}</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>{ (parseFloat(price) * buyerList[0]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
-                    <span>8% (24 hours)</span>
+                    <span>{(buyerList[0]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -317,11 +332,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet1} className={styles.topWallet}>
-                  <h2>#2<p>Wallet:<span>{buyerList[1]?.buyer}</span></p></h2>
+                  <h2><a>#2</a><p>Wallet:<span>{buyerList[1]?.buyer}</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>{ (parseFloat(price) * buyerList[1]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
-                    <span>15% (24 hours)</span>
+                    <span>{(buyerList[1]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -333,11 +348,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             <div className={styles.secondsPlace}>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet2} className={styles.topWallet}>
-                  <h2>#3<p>Wallet:<span>{buyerList[2]?.buyer}</span></p></h2>
+                  <h2><a>#3</a><p>Wallet:<span>{buyerList[2]?.buyer}</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>{ (parseFloat(price) * buyerList[2]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
-                    <span>32% (24 hours)</span>
+                    <span>{(buyerList[2]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -347,11 +362,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet3} className={styles.topWallet}>
-                  <h2>#4<p>Wallet:<span>{buyerList[3]?.buyer}</span></p></h2>
+                  <h2><a>#4</a><p>Wallet:<span>{buyerList[3]?.buyer}</span></p></h2>
                   <p><GiProgression size={10} color="white" /><span>{ (parseFloat(price) * buyerList[3]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleUp size={10} color="var(--success)"/>
-                    <span>4,5% (24 hours)</span>
+                    <span>{(buyerList[3]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -372,11 +387,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             <div className={styles.firtsPlace}>            
               <div className={styles.cardWallet1}>
                 <div className={styles.topWallet}>
-                  <h2>#1<p>Wallet:<span>{sellerList[0]?.seller}</span></p></h2>
+                  <h2><a>#1</a><p>Wallet:<span>{sellerList[0]?.seller}</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>{ (parseFloat(price) * sellerList[0]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
-                    <span>7% (24 hours)</span>
+                    <span>{(buyerList[0]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -386,11 +401,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet1} className={styles.topWallet}>
-                  <h2>#2<p>Wallet:<span>{sellerList[1]?.seller}</span></p></h2>
+                  <h2><a>#2</a><p>Wallet:<span>{sellerList[1]?.seller}</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>{ (parseFloat(price) * sellerList[1]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
-                    <span>18% (24 hours)</span>
+                    <span>{(buyerList[1]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -402,11 +417,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             <div className={styles.secondsPlace}>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet2} className={styles.topWallet}>
-                  <h2>#3<p>Wallet:<span>{sellerList[2]?.seller}</span></p></h2>
+                  <h2><a>#3</a><p>Wallet:<span>{sellerList[2]?.seller}</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>{ (parseFloat(price) * sellerList[2]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
-                    <span>22% (24 hours)</span>
+                    <span>{(buyerList[2]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -416,11 +431,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
               <div className={styles.cardWallet1}>
                 <div id={styles.wallet3} className={styles.topWallet}>
-                  <h2>#4<p>Wallet:<span>{sellerList[3]?.seller}</span></p></h2>
+                  <h2><a>#4</a><p>Wallet:<span>{sellerList[3]?.seller}</span></p></h2>
                   <p><BsGraphDown size={10} color="white" /><span>{ (parseFloat(price) * sellerList[3]!.amount).toLocaleString("en", { style: "currency", currency: "USD"}) }</span></p>
                   <div className={styles.middleCard}>
                     <GoTriangleDown size={10} color="var(--error)"/>
-                    <span>3% (24 hours)</span>
+                    <span>{(buyerList[3]?.amount / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 4})} (24 hours)</span>
                   </div>
                 </div>
                 <div className={styles.bottomWallet}>
@@ -567,7 +582,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       
     var data = JSON.stringify({
       "query": "query ($network: EthereumNetwork!, $token: String!, $limit: Int!, $offset: Int!, $from: ISO8601DateTime, $till: ISO8601DateTime) {\n  ethereum(network: $network) {\n    transfers(\n      options: {desc: \"amount\", limit: $limit, offset: $offset}\n      date: {since: $from, till: $till}\n      amount: {gt: 0}\n      currency: {is: $token}\n    ) {\n      block {\n        timestamp {\n          time(format: \"%Y-%m-%d %H:%M:%S\")\n        }\n        height\n      }\n      sender {\n        address\n      }\n      receiver {\n        address\n      }\n      transaction {\n        hash\n      }\n      amount\n    }\n  }\n}\n",
-      "variables": `{\n  \"limit\": 20,\n  \"offset\": 0,\n  \"network\": \"bsc\",\n  \"token\": \"0x6dd60afb2586d31bf390450adf5e6a9659d48c4a\",\n  \"from\": \"${formated}\",\n  \"till\": \"${formated}T23:59:59\",\n  \"dateFormat\": \"%Y-%m-%d\"\n}`
+      "variables": `{\n  \"limit\": 40,\n  \"offset\": 0,\n  \"network\": \"bsc\",\n  \"token\": \"0x6dd60afb2586d31bf390450adf5e6a9659d48c4a\",\n  \"from\": \"${formated}\",\n  \"till\": \"${formated}T23:59:59\",\n  \"dateFormat\": \"%Y-%m-%d\"\n}`
     });
   
     var config = {

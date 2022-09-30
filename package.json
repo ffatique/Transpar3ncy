@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@thirdweb-dev/react": "^3.1.2",
+    "@thirdweb-dev/sdk": "^3.1.2",
     "date-fns": "^2.29.2",
     "firebase": "^9.9.4",
     "moralis-v1": "^1.11.0",
