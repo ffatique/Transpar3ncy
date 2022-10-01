@@ -403,7 +403,7 @@
           width: 100%;
 
           p{
-            word-spacing: 30px;
+            word-spacing: 10px;
             font-size: .75rem;
             font-weight: normal;
             color: var(--gray);
@@ -411,7 +411,7 @@
 
           li{
             width: 87%;
-            height: 1rem;
+            height: 1.5rem;
             display: flex;
             margin-top: .3rem;
 
@@ -428,7 +428,7 @@
               font-weight: normal;
               color: var(--gray);
               text-align: center;
-              margin-left: -3rem;
+              margin-left: -5rem;
             }
 
             span{
@@ -439,7 +439,7 @@
             }
 
             img{
-              margin-left: -1rem;
+              margin-left: -3rem;
               margin-top: .15rem;
               margin-right: .5rem;
               height: 15px;

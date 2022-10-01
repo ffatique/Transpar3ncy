@@ -14,12 +14,12 @@ import binance from '../../public/images/binance.png';
 import ethereum from '../../public/images/ethereum.png';
 import polygon from '../../public/images/polygon.png';
 import whale from '../../public/images/whale.png';
-import killerwhale from '../../public/images/killerwhale.png';
+import hwhale from '../../public/images/hwhale.png';
+import sardine from '../../public/images/sardine.png';
 import shark from '../../public/images/shark.png';
 import dolphin from '../../public/images/dolphin.png';
 import turtle from '../../public/images/turtle.png';
 import crab from '../../public/images/crab.png';
-import seahorse from '../../public/images/seahorse.png';
 
 const axios = require('axios');
 const puppeteer = require('puppeteer');
@@ -28,7 +28,7 @@ interface List{
   position: string,
   address: string,
   tokens: string,
-  percent?: string
+  percent: string
 }
 interface ListH{
   sender: string,
@@ -91,6 +91,12 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     return 0;
   }
 
+  const burnAddress = categoryList.slice(0,1).map( wallet => {
+    return parseFloat(wallet.tokens.replace(",","").replace(",",""))
+  }).reduce(function(soma, i) {
+    return soma + i;
+  });
+
   const buyerList = hotList.map( wallet => {
     
     if(wallet.sender === tradePair){
@@ -122,9 +128,133 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     }
   }).sort(compare)
 
+  const humpbackList = categoryList.slice(1,10).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
+
+  const humpbackTotal = humpbackList.reduce(function(soma, i) {
+    return soma + i;
+  });
+
+  const humpbackW = humpbackList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
+
+  const humpbackAvg =  humpbackTotal / humpbackW
+  
+  const whaleList = categoryList.slice(1,10).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
+
+  const whaleTotal = whaleList.reduce(function(soma, i) {
+    return soma + i;
+  });
+
+  const whaleW = whaleList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
+
+  const whaleAvg =  whaleTotal / whaleW
+
+  const sharkList = categoryList.slice(1,20).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 400) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 200)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
+
+  const sharkTotal = sharkList.reduce(function(soma, i) {
+    return soma + i;
+  });
+
+  const sharkW = sharkList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
+
+  const sharkAvg =  sharkTotal / sharkW
+
+  const dolphinList = categoryList.slice(1,50).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
+
+  const dolphinTotal = dolphinList.reduce(function(soma, i) {
+    return soma + i;
+  });
+
+  const dolphinW = dolphinList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
+
+  const dolphinAvg =  dolphinTotal / dolphinW
+
+  const turtleList = categoryList.slice(1,50).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
+
+  const turtleTotal = turtleList.reduce(function(soma, i) {
+    return soma + i;
+  });
+
+  const turtleW = turtleList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
+
+  const turtleAvg =  turtleTotal / turtleW
+
+  const crabList = categoryList.slice(1,100).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
+
+  const crabTotal = crabList.reduce(function(soma, i) {
+    return soma + i;
+  });
+
+  const crabW = crabList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
+
+  const crabAvg =  crabTotal / crabW
+
+  const sardineW = parseInt(holdersActives) - (humpbackW + whaleW + sharkW + dolphinW + turtleW + crabW)
+  const sardineTotal = 1000000000 - (burnAddress + humpbackTotal + whaleTotal + sharkTotal + dolphinTotal + turtleTotal + crabTotal)
+  const sardineAvg =  sardineTotal  / sardineW 
+
+
   useEffect(()=>{
 
-    
     setTokenName(details.name.split("(",1).toString());
     setCreator(details.creator);
     setSymbol(info.symbol);
@@ -252,14 +382,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>Marine Scale</p>
             </div>
             <div className={styles.listCard}>
-              <ul><p>Position MarineScale TotalSupply%</p>
-                <li><h4>1</h4><Image src={whale} alt="Humpback Whales"/><p>Humpback Whales</p><span>+20%</span></li>
-                <li><h4>2</h4><Image src={killerwhale} alt="Whales"/><p>Whales</p><span>18 - 19%</span></li>
-                <li><h4>3</h4><Image src={shark} alt="Sharks"/><p>Sharks</p><span>14 - 15%</span></li>
-                <li><h4>4</h4><Image src={dolphin} alt="Dolphins"/><p>Dolphins</p><span>12 - 13%</span></li>
-                <li><h4>5</h4><Image src={turtle} alt="Turtles"/><p>Turtles</p><span>7 - 9%</span></li>
-                <li><h4>6</h4><Image src={crab} alt="Crabs"/><p>Crabs</p><span>4 - 6%</span></li>
-                <li><h4>7</h4><Image src={seahorse} alt="Sardines"/><p>Sardines</p><span>2 - 3%</span></li>
+              <ul><p>Place MarineScale &ensp; &ensp;  &ensp; TotalSupply%</p>
+                <li><h4>1</h4><Image src={hwhale} alt="Humpback Whales"/><p>Humpback Whales</p><span>1%+</span></li>
+                <li><h4>2</h4><Image src={whale} alt="Whales"/><p>Whales</p><span>0,5% - 1%</span></li>
+                <li><h4>3</h4><Image src={shark} alt="Sharks"/><p>Sharks</p><span>0,25% - 0,5%</span></li>
+                <li><h4>4</h4><Image src={dolphin} alt="Dolphins"/><p>Dolphins</p><span>0,15% - 0,25%</span></li>
+                <li><h4>5</h4><Image src={turtle} alt="Turtles"/><p>Turtles</p><span>0,10% - 0,15%</span></li>
+                <li><h4>6</h4><Image src={crab} alt="Crabs"/><p>Crabs</p><span>0,05% - 0,10%</span></li>
+                <li><h4>7</h4><Image src={sardine} alt="Sardines"/><p>Sardines</p><span>0,0% - 0,05%</span></li>
               </ul>
             </div>
           </div>
@@ -275,11 +405,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.infoCard}>
               <ul>
-                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Humpback Whales - 17%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Whales - 8%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--hwhale)" /><p>Humpback Whales - 17%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Whales - 8%</p></li>
                 <li><BsFillSquareFill size={10} color="var(--shark)" /><p>Sharks - 39%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--crab)" /><p>Dolphins - 25%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--killerwhale)" /><p>Turtles - 11%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Dolphins - 25%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--turtle)" /><p>Turtles - 11%</p></li>
               </ul>
             </div>
           </div>
@@ -534,7 +664,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   async function getCategoryWallets() {
     const browser = await puppeteer.launch();
     const page = await browser.newPage();
-    await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=50');
+    await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=100');
     
     const walletList = await page.evaluate(() => {
         
