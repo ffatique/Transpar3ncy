@@ -20,6 +20,9 @@ import shark from '../../public/images/shark.png';
 import dolphin from '../../public/images/dolphin.png';
 import turtle from '../../public/images/turtle.png';
 import crab from '../../public/images/crab.png';
+import { Pie, Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
+ChartJS.register(ArcElement, Tooltip, Legend);
 
 const axios = require('axios');
 const puppeteer = require('puppeteer');
@@ -250,7 +253,44 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   const sardineW = parseInt(holdersActives) - (humpbackW + whaleW + sharkW + dolphinW + turtleW + crabW)
   const sardineTotal = 1000000000 - (burnAddress + humpbackTotal + whaleTotal + sharkTotal + dolphinTotal + turtleTotal + crabTotal)
-  const sardineAvg =  sardineTotal  / sardineW 
+  const sardineAvg =  sardineTotal  / sardineW
+
+  // Graphs
+
+  const pieData = {
+    maintainAspectRatio: false,
+    responsive: false,
+    datasets: [
+      {
+        label: 'Wallets',
+        data: [parseInt(holdersActives), inactives],
+        backgroundColor: [
+          "#2DCE98",
+          "#F53C56"
+        ],
+        borderColor: [
+          "#14112E",
+        ],
+      }
+    ]
+  };
+
+  const pieOptions = {
+    elements: {
+      arc: {
+        borderWidth: 4
+      },
+    },
+    plugins:{
+      tooltip:{
+        titleFont: {weight: 'bold', size: 28},
+        bodyFont: {weight: 'bold', size: 28},
+        footerFont: {weight: 'bold', size: 28},
+        padding: 10,
+
+      }
+    }
+  };
 
 
   useEffect(()=>{
@@ -299,6 +339,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
           </div>
         </div>
+
         <div className={styles.cardContent2}>
           <div className={styles.content}>
             <div className={styles.cardAddress}>
@@ -316,6 +357,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
             </div>
           </div>
+
           <div className={styles.content2}>
             <div className={styles.cardWallets}>
               <div className={styles.topCard}>
@@ -330,9 +372,10 @@ export default function Home({ details, info, totalUniques, lastUnique, category
                 <h2>+ {wallets} Wallets</h2>
               </div>
             </div>
+
             <div className={styles.cardHolders}>
               <div className={styles.topCard}>
-                <h3>Total Uniques Wallets: {totalWallets}</h3>
+                <h3>Total Uniques Wallets: <span>{totalWallets}</span></h3>
                 <p>...<abbr title="Actives: Holders who kept their positions and Inactives: Holders who sold all their Tokens">.</abbr></p>
               </div>
               <div className={styles.underTopCard}>
@@ -340,16 +383,17 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               </div>
               <div className={styles.middleCard}>
                 <BsCircleFill size={14} color="var(--error)" />
-                <p>Inactives {inactives}</p>
+                <p>Inactives <span>{inactives}</span></p>
               </div>
               <div className={styles.GraphCard}>
-                <BsCircleHalf size={14} color="var(--success)" />
+                <Pie data={pieData} options={pieOptions} width={1200} height={1200}/>
               </div>
               <div className={styles.baseCard}>
-                <p>Actives {holdersActives}</p>
+                <p>Actives <span>{holdersActives}</span></p>
                 <BsCircleFill size={14} color="var(--success)" />
               </div>
             </div>
+
           </div>
         </div>
       </div>
@@ -405,11 +449,13 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             </div>
             <div className={styles.infoCard}>
               <ul>
-                <li><BsFillSquareFill size={10} color="var(--hwhale)" /><p>Humpback Whales - 17%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Whales - 8%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--shark)" /><p>Sharks - 39%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Dolphins - 25%</p></li>
-                <li><BsFillSquareFill size={10} color="var(--turtle)" /><p>Turtles - 11%</p></li>
+                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Humpback Whales - {(humpbackTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(humpbackAvg).toLocaleString("en")}</p></li>
+                <li><BsFillSquareFill size={10} color="var(--hwhale)" /><p>Whales - {(whaleTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(whaleAvg).toLocaleString("en")}</p></li>
+                <li><BsFillSquareFill size={10} color="var(--shark)" /><p>Sharks - {(sharkTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(sharkAvg).toLocaleString("en")}</p></li>
+                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Dolphins - {(dolphinTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(dolphinAvg).toLocaleString("en")}</p></li>
+                <li><BsFillSquareFill size={10} color="var(--turtle)" /><p>Turtles - {(turtleTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(turtleAvg).toLocaleString("en")}</p></li>
+                <li><BsFillSquareFill size={10} color="var(--crab" /><p>Crabs - {(crabTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(crabAvg).toLocaleString("en")}</p></li>
+                <li><BsFillSquareFill size={10} color="var(--sardine)" /><p>Sardines - {(sardineTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(sardineAvg).toLocaleString("en")}</p></li>
               </ul>
             </div>
           </div>

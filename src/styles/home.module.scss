@@ -236,10 +236,15 @@
 
           p{
             width: 1rem;
-            line-height: 2rem;
+            line-height: 1.5rem;
             font-weight: 600;
             text-align: right;
             margin-right: 5rem;
+
+            span{
+              font-weight: 500;
+              color: darkgrey;
+            }
           }
         }
 
@@ -247,6 +252,12 @@
           height: 12rem;
           width: 100%;
           display: flex;
+          align-items: center;
+          justify-content: center;
+
+          canvas{
+            padding: 6rem;
+          }
         }
 
         .baseCard{
@@ -264,10 +275,16 @@
 
           p{
             width: 1rem;
-            line-height: 2rem;
+            line-height: 1.5rem;
             font-weight: 600;
             text-align: left;
+            margin-top: .5rem;
             margin-left: 1.5rem;
+
+            span{
+              font-weight: 500;
+              color: darkgrey;
+            }
           }
         }
       }
@@ -288,6 +305,7 @@
     text-align: left;
     margin: 1.5rem;
     margin-right: 1rem;
+
   }
 
   p{
