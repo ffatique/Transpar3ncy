@@ -15,7 +15,7 @@ export function Header(){
       <div className={styles.headerContent}>
         <Image src={logo} alt="Logo Transpar3ncy"/>
         <CgMenuBoxed id={styles.burguer} size={25} color="white" />
-        <h2>Dashboard</h2>
+        <h2>InfoGraphic Token</h2>
         <nav>        
           <a><FaWallet size={25} color="white" /></a>
           <a><GiTrophiesShelf size={25} color="white" /></a>

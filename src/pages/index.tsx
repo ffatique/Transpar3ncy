@@ -8,7 +8,7 @@ import { GiProgression } from 'react-icons/gi';
 import { db } from '../services/firebaseConnection';
 import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { format, startOfYesterday } from 'date-fns';
+import { format, startOfYesterday, getMonth } from 'date-fns';
 import Image from 'next/future/image';
 import binance from '../../public/images/binance.png';
 import ethereum from '../../public/images/ethereum.png';
@@ -20,9 +20,10 @@ import shark from '../../public/images/shark.png';
 import dolphin from '../../public/images/dolphin.png';
 import turtle from '../../public/images/turtle.png';
 import crab from '../../public/images/crab.png';
-import { Pie, Doughnut } from 'react-chartjs-2';
-import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
-ChartJS.register(ArcElement, Tooltip, Legend);
+import { Pie, Doughnut, Line } from 'react-chartjs-2';
+import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, LineElement, PointElement, Filler } from "chart.js";
+import ChartDataLabels from 'chartjs-plugin-datalabels';
+ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, CategoryScale, LinearScale, LineElement, PointElement, Filler);
 
 const axios = require('axios');
 const puppeteer = require('puppeteer');
@@ -38,6 +39,10 @@ interface ListH{
   receiver: string,
   amount: number,
   balanceOf: string,
+}
+interface ListU{
+  date: string,
+  uniques: number,
 }
 interface Token{
   details: {
@@ -61,9 +66,10 @@ interface Token{
   categoryWallets: List[],
   rankingWallets: List[],
   hotWallets: ListH[],
+  uniquesDaily: ListU[],
 }
 
-export default function Home({ details, info, totalUniques, lastUnique, categoryWallets, rankingWallets, hotWallets }: Token){
+export default function Home({ details, info, totalUniques, lastUnique, categoryWallets, rankingWallets, hotWallets, uniquesDaily }: Token){
   const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
   const tradePair =	'0x591b7b63dcd9ac56573418a62ab37c936be7459c';
 
@@ -80,6 +86,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const [rankingList, setRankingList] = useState(rankingWallets);
   const [hotList, setHotList] = useState(hotWallets);
   const [price, setPrice] = useState('');
+  const [uniquesDay, setUniquesDay] = useState(uniquesDaily);
     
   const inactives = parseInt(totalWallets) - parseInt(holdersActives)
   const variation = (parseInt(wallets) / parseInt(totalWallets)).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})
@@ -255,14 +262,18 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const sardineTotal = 1000000000 - (burnAddress + humpbackTotal + whaleTotal + sharkTotal + dolphinTotal + turtleTotal + crabTotal)
   const sardineAvg =  sardineTotal  / sardineW
 
+  console.log(uniquesDay)
+
   // Graphs
+
+  // Pie
 
   const pieData = {
     maintainAspectRatio: false,
     responsive: false,
     datasets: [
       {
-        label: 'Wallets',
+        labels: ['Wallets', 'Wallets'],
         data: [parseInt(holdersActives), inactives],
         backgroundColor: [
           "#2DCE98",
@@ -287,11 +298,151 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         bodyFont: {weight: 'bold', size: 28},
         footerFont: {weight: 'bold', size: 28},
         padding: 10,
+      },
+      datalabels:{
+        display: true,
+        formatter: (value: any, context: any)=> {
+          const datapoints = context.chart.data.datasets[0].data;
+          function totalSum(total: any, datapoint: any) {
+            return total + datapoint;
+          }
+          const totalvalue = datapoints.reduce(totalSum, 0);
+          const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
+          return percentageValue;
+        },
+        labels: {
+          value: {
+            color: '#14112E',
+            font:{
+              size: 18,
+              weight: 'bold',
+            },
+            align: 'start',
+            anchor:  'end',
+          },
+        }
+      },
+    }
+  };
 
+  // Doughnut
+
+  const doughnutData = {
+    maintainAspectRatio: false,
+    responsive: false,
+    labels: ['Humpback Whales', 'Whales', 'Sharks', 'Dolphins', 'Turtles', 'Crabs', 'Sardines'],
+    datasets: [
+      {
+        data: [humpbackTotal, whaleTotal, sharkTotal, dolphinTotal, turtleTotal, crabTotal, sardineTotal ],
+        backgroundColor: [
+          "#28C741",
+          "#3475DC",
+          "#FFAB2D",
+          "#EE3CD2",
+          "#2C2754",
+          "#BD5D0C",
+          "#3EC6A4",
+        ],
+        borderColor: [
+          "#14112E",
+        ],
+      }
+    ]
+  };
+
+  const doughnutOptions = {
+    elements: {
+      arc: {
+        borderWidth: 4
+      },
+    },
+    plugins:{
+      tooltip:{
+        bodyFont: {size: 20},
+        padding: 2,
+      },
+      legend:{
+        labels:{
+          color:  "#fff",
+          font: {size: 16},
+          boxWidth: 20,
+        },
+        title: {
+          display: false,
+        }
+      },
+      datalabels:{
+        formatter: (value: any, context: any)=> {
+          const datapoints = context.chart.data.datasets[0].data;
+          function totalSum(total: any, datapoint: any) {
+            return total + datapoint;
+          }
+          const totalvalue = datapoints.reduce(totalSum, 0);
+          const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
+          return percentageValue;
+        },
+        labels: {
+          value: {
+            color: 'white',
+            font:{
+              size: 15,
+              weight: 'bold',
+            },
+            align: 'start',
+            anchor:  'end',
+          },
+        }
       }
     }
   };
 
+ 
+  // Line Area
+  const label = [];
+  const data = [];
+  for(var i of uniquesDay.slice(0,30).reverse()){
+    label.push(i.date);
+    data.push(i.uniques);
+  }
+
+  const areaData = {
+    labels: label,
+    datasets: [
+      {
+        fill: true,
+        data: data,
+        backgroundColor: '#533483',
+        borderColor: 'rgb(53, 162, 235)',
+        tension: 0.1,
+        pointBackgroundColor: 'white',
+      }
+    ]
+  };
+
+  const areaOptions = {
+    responsive: true,
+    plugins:{
+      legend: {
+        display: false,
+      },
+      datalabels:{
+        display: true,
+
+        labels: {
+          value: {
+            color: 'white',
+            font:{
+              size: 16,
+              weight: 'bold',
+            },
+            align: 'top',
+            anchor:  'end',
+          },
+        }
+      },
+      
+    },
+  };
 
   useEffect(()=>{
 
@@ -402,14 +553,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         <div className={styles.cardContent1}>
           <div className={styles.cardGrowth}>
             <div className={styles.topCard}>
-              <h3>Growth Graphic</h3>
+              <h3>Growth Graphic Daily</h3>
               <p>...<abbr title="Monthly growth of new wallets that bought the token">.</abbr></p>
             </div>
             <div className={styles.underTopCard}>
-              <p>Growth Month Wallets</p>
+              <p>Uniques Wallets (Last 30 Days)</p>
             </div>
             <div className={styles.GraphCard}>
-              <p>Loading...........Graphic Month Wallets</p>
+              <Line data={areaData} options={areaOptions} />
             </div>
           </div>
         </div>
@@ -445,18 +596,10 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>...<abbr title="Token represented by each range of the scale">.</abbr></p>
             </div>
             <div className={styles.GraphCard}>
-              <BsCircleHalf size={14} color="var(--success)" />
+              <Doughnut data={doughnutData} options={doughnutOptions} width={1200} height={1200}/>
             </div>
             <div className={styles.infoCard}>
-              <ul>
-                <li><BsFillSquareFill size={10} color="var(--whale)" /><p>Humpback Whales - {(humpbackTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(humpbackAvg).toLocaleString("en")}</p></li>
-                <li><BsFillSquareFill size={10} color="var(--hwhale)" /><p>Whales - {(whaleTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(whaleAvg).toLocaleString("en")}</p></li>
-                <li><BsFillSquareFill size={10} color="var(--shark)" /><p>Sharks - {(sharkTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(sharkAvg).toLocaleString("en")}</p></li>
-                <li><BsFillSquareFill size={10} color="var(--dolphin)" /><p>Dolphins - {(dolphinTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(dolphinAvg).toLocaleString("en")}</p></li>
-                <li><BsFillSquareFill size={10} color="var(--turtle)" /><p>Turtles - {(turtleTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(turtleAvg).toLocaleString("en")}</p></li>
-                <li><BsFillSquareFill size={10} color="var(--crab" /><p>Crabs - {(crabTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(crabAvg).toLocaleString("en")}</p></li>
-                <li><BsFillSquareFill size={10} color="var(--sardine)" /><p>Sardines - {(sardineTotal / 1000000000).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})} - Avg: {(sardineAvg).toLocaleString("en")}</p></li>
-              </ul>
+            
             </div>
           </div>
         </div>
@@ -785,6 +928,39 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
     });
     return listHot
   };
+
+  async function getWalletsDaily(){
+    const startYesterday = startOfYesterday();
+    const formated = format(startYesterday,'yyyy-MM-dd');
+      
+    var data = JSON.stringify({
+      "query": "query ($network: EthereumNetwork!, $token: String!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) {\n  ethereum(network: $network) {\n    transfers(\n      currency: {is: $token}\n      height: {gt: 0}\n      amount: {gt: 0}\n      date: {since: $from, till: $till}\n    ) {\n      date {\n        date(format: $dateFormat)\n      }\n      count: countBigInt(uniq: receivers)\n    }\n  }\n}\n",
+      "variables": `{\"limit\":1000,\"offset\":0,\"network\":\"bsc\",\"token\":\"0x6dd60afb2586d31bf390450adf5e6a9659d48c4a\",\"from\":\"2022-02-26\",\"till\":\"${formated}T23:59:59\",\"dateFormat\":\"%Y-%m-%d\"}`
+   });
+  
+    var config = {
+      method: 'post',
+      url: 'https://graphql.bitquery.io',
+      headers: { 
+        'Content-Type': 'application/json', 
+        'X-API-KEY': 'BQY8tkWK5F4ilrr7FxthT8BVeqTy9hHR'
+      },
+      data : data
+    };
+  
+    const listUniques = await axios(config)
+    .then(function (response: any) {
+      const list = response.data.data.ethereum.transfers.map( (wallet: any) =>({
+        date: format(new Date(wallet.date.date), 'MM-dd'),
+        uniques: parseFloat(wallet.count),
+    }))
+      return list
+    })
+    .catch(function (error: any) {
+      console.log(error);
+    });
+    return listUniques
+  };
     
   const details = await getDetails();
   const info = await getInfo();
@@ -793,6 +969,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
   const categoryWallets = await getCategoryWallets();
   const rankingWallets = await getRankingWallets();
   const hotWallets = await getHotWallerts();
+  const uniquesDaily = await getWalletsDaily();
         
   return{
     props: {
@@ -803,6 +980,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       categoryWallets,
       rankingWallets,
       hotWallets,
+      uniquesDaily,
     }
   }
 

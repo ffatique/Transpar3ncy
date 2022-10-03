@@ -339,12 +339,12 @@
 
 .secondRollContainer{
   max-width: 1120px;
-  height: 460px;
+  height: 520px;
   margin: .5rem auto;
   display: flex;
 
   .cardContent1{
-    height: 460px;
+    height: 520px;
     width: 1120px;
     display: flex;
     padding: 1rem;
@@ -356,15 +356,15 @@
       background-color: var(--header);
 
       .GraphCard{
-        height: 90%;
+        height: 1%;
         width: 100%;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-top: 7rem;
+        margin-top: 13rem;
 
-        p{
-          text-align: center;
+        canvas{
+          padding: 6rem 3rem;
         }
       }
     }
@@ -482,10 +482,16 @@
       background-color: var(--header);
 
       .GraphCard{
-        height: 35%;
+        height: 100%;
         width: 100%;
-        margin-top: 1rem;
         display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: -4rem;
+
+        canvas{
+          padding: 3rem;
+        }
       }
 
       .infoCard{
