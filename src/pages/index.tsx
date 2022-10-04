@@ -305,8 +305,6 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   // PIE GRAPHIC
   const pieData = {
-    maintainAspectRatio: false,
-    responsive: false,
     datasets: [
       {
         labels: ['Wallets', 'Wallets'],
@@ -336,6 +334,17 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         padding: 10,
       },
       datalabels:{
+        labels:{
+          value:{
+            align: 265,
+            offset: 50,
+            color: '#14112E',
+            font:{
+              weight: 800,
+              size: 20,
+            }
+          },
+        },
         display: true,
         formatter: (value: any, context: any)=> {
           const datapoints = context.chart.data.datasets[0].data;
@@ -346,27 +355,15 @@ export default function Home({ details, info, totalUniques, lastUnique, category
           const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
           return percentageValue;
         },
-        labels: {
-          value: {
-            color: '#14112E',
-            font:{
-              size: 18,
-              weight: 'bold',
-            },
-            align: 'start',
-            anchor:  'end',
-          },
-        }
       },
-    }
+    },
+    
   };
 
   // PIE GRAPHIC
 
   // DOUGHNUT GRAPHIC
   const doughnutData = {
-    maintainAspectRatio: false,
-    responsive: false,
     labels: ['Humpback Whales', 'Whales', 'Sharks', 'Dolphins', 'Turtles', 'Crabs', 'Sardines'],
     datasets: [
       {
@@ -409,6 +406,17 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         }
       },
       datalabels:{
+        labels:{
+          value:{
+            align: 265,
+            offset: -15,
+            color: 'white',
+            font:{
+              weight: 600,
+              size: 15,
+            }
+          },
+        },
         formatter: (value: any, context: any)=> {
           const datapoints = context.chart.data.datasets[0].data;
           function totalSum(total: any, datapoint: any) {
@@ -418,17 +426,6 @@ export default function Home({ details, info, totalUniques, lastUnique, category
           const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
           return percentageValue;
         },
-        labels: {
-          value: {
-            color: 'white',
-            font:{
-              size: 15,
-              weight: 'bold',
-            },
-            align: 'start',
-            anchor:  'end',
-          },
-        }
       }
     }
   };
@@ -470,20 +467,17 @@ export default function Home({ details, info, totalUniques, lastUnique, category
       },
       datalabels:{
         display: true,
-
-        labels: {
-          value: {
+        labels:{
+          value:{
+            align: 265,
             color: 'white',
             font:{
+              weight: 600,
               size: 16,
-              weight: 'bold',
-            },
-            align: 'top',
-            anchor:  'end',
+            }
           },
-        }
+        },
       },
-      
     },
   };
 
@@ -606,7 +600,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
                 <p>Inactives <span>{inactives}</span></p>
               </div>
               <div className={styles.GraphCard}>
-                <Pie data={pieData} options={pieOptions} width={1200} height={1200}/>
+                <Pie data={pieData}  plugins={[ChartDataLabels]} options={pieOptions} width={1200} height={1200}/>
               </div>
               <div className={styles.baseCard}>
                 <p>Actives <span>{holdersActives}</span></p>
@@ -629,7 +623,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>Uniques Wallets (Last 30 Days)</p>
             </div>
             <div className={styles.GraphCard}>
-              <Line data={areaData} options={areaOptions} />
+              <Line data={areaData} plugins={[ChartDataLabels]} options={areaOptions} />
             </div>
           </div>
         </div>
@@ -665,7 +659,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>...<abbr title="Token represented by each range of the scale">.</abbr></p>
             </div>
             <div className={styles.GraphCard}>
-              <Doughnut data={doughnutData} options={doughnutOptions} width={1200} height={1200}/>
+              <Doughnut data={doughnutData}  plugins={[ChartDataLabels]} options={doughnutOptions} width={1200} height={1200}/>
             </div>
             <div className={styles.infoCard}>
             
