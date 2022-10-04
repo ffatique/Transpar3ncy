@@ -105,13 +105,13 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   }
 
   // BURN
-  const burnAddress = categoryWallets.slice(0,1).map( wallet => {
+  const burnAddress = categoryList.slice(0,1).map( wallet => {
     return parseFloat(wallet.tokens.replace(",","").replace(",",""))
   }).reduce(function(soma, i) {
     return soma + i;
   });
 
-  const burnAddressW = categoryWallets.slice(0,1).map( wallet => {
+  const burnAddressW = categoryList.slice(0,1).map( wallet => {
     return wallet.address
   })
 
@@ -152,7 +152,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // BUY AND SELL LISTS 
 
   // HUMPBACK WHALES LITS
-  const humpbackList = categoryWallets.slice(1,10).map( wallet => {
+  const humpbackList = categoryList.slice(1,10).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
       return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
@@ -175,7 +175,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // HUMPBACK WHALES LITS
 
   // WHALES LITS
-  const whaleList = categoryWallets.slice(1,10).map( wallet => {
+  const whaleList = categoryList.slice(1,10).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
       return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
@@ -199,7 +199,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   // SHARKS LITS
 
-  const sharkList = categoryWallets.slice(1,20).map( wallet => {
+  const sharkList = categoryList.slice(1,20).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 400) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 200)){
       return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
@@ -222,7 +222,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // SHARKS LITS
 
   // DOLPHINS LITS
-  const dolphinList = categoryWallets.slice(1,50).map( wallet => {
+  const dolphinList = categoryList.slice(1,50).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
       return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
@@ -245,7 +245,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // DOLPHINS LITS
 
   // TURTLES LITS
-  const turtleList = categoryWallets.slice(1,50).map( wallet => {
+  const turtleList = categoryList.slice(1,50).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
       return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
@@ -268,7 +268,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // TURTLES LITS
 
   // CRABS LITS
-  const crabList = categoryWallets.slice(1,100).map( wallet => {
+  const crabList = categoryList.slice(1,100).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
       return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
