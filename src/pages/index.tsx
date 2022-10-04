@@ -105,7 +105,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   }
 
   // BURN
-  const burnAddress = 0
+  const burnAddress = categoryList.slice(0,1).map( wallet => {
+    return parseFloat(wallet.tokens.replace(",","").replace(",",""))
+  }).reduce(function(soma, i) {
+    return soma + i;
+  });
 
   const burnAddressW = categoryList.slice(0,1).map( wallet => {
     return wallet.address
