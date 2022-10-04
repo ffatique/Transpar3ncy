@@ -155,9 +155,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
        else return 0
     })
 
-  const humpbackTotal = 0
+  const humpbackTotal = humpbackList.reduce(function(soma, i) {
+    return soma + i;
+  });
 
-  const humpbackW = 0
+  const humpbackW = humpbackList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
 
   const humpbackAvg =  humpbackTotal / humpbackW
 
@@ -171,9 +178,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
        else return 0
     })
 
-  const whaleTotal = 0
+  const whaleTotal = whaleList.reduce(function(soma, i) {
+    return soma + i;
+  });
 
-  const whaleW = 0
+  const whaleW = whaleList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
 
   const whaleAvg =  whaleTotal / whaleW
 
@@ -188,9 +202,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
        else return 0
     })
 
-  const sharkTotal = 0
+  const sharkTotal = sharkList.reduce(function(soma, i) {
+    return soma + i;
+  });
 
-  const sharkW = 0
+  const sharkW = sharkList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
 
   const sharkAvg =  sharkTotal / sharkW
 
@@ -204,9 +225,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
        else return 0
     })
 
-  const dolphinTotal = 0
+  const dolphinTotal = dolphinList.reduce(function(soma, i) {
+    return soma + i;
+  });
 
-  const dolphinW = 0
+  const dolphinW = dolphinList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
 
   const dolphinAvg =  dolphinTotal / dolphinW
 
@@ -220,9 +248,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
        else return 0
     })
 
-  const turtleTotal = 0
+  const turtleTotal = turtleList.reduce(function(soma, i) {
+    return soma + i;
+  });
 
-  const turtleW = 0
+  const turtleW = turtleList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
 
   const turtleAvg =  turtleTotal / turtleW
 
@@ -236,9 +271,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
        else return 0
     })
 
-  const crabTotal = 0
+  const crabTotal = crabList.reduce(function(soma, i) {
+    return soma + i;
+  });
 
-  const crabW = 0
+  const crabW = crabList.reduce((total, valor) => {
+    if (valor > 0 ) {
+      return total + 1;
+    }
+    return total;
+  }, 0)
 
   const crabAvg =  crabTotal / crabW
 
