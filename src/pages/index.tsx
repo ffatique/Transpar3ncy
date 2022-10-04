@@ -351,9 +351,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
           function totalSum(total: any, datapoint: any) {
             return total + datapoint;
           }
-          //const totalvalue = datapoints.reduce(totalSum, 0);
-          //const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
-          //return percentageValue;
+          const totalvalue = datapoints.reduce(totalSum, 0);
+          const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
+          return percentageValue;
         },
       },
     },
@@ -422,9 +422,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
           function totalSum(total: any, datapoint: any) {
             return total + datapoint;
           }
-          //const totalvalue = datapoints.reduce(totalSum, 0);
-          //const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
-          //return percentageValue;
+          const totalvalue = datapoints.reduce(totalSum, 0);
+          const percentageValue = (value / totalvalue * 1).toLocaleString("en", { style: "percent",  minimumFractionDigits: 2});
+          return percentageValue;
         },
       }
     }
