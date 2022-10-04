@@ -152,139 +152,61 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // BUY AND SELL LISTS 
 
   // HUMPBACK WHALES LITS
-  const humpbackList = categoryList.slice(1,10).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+  const humpbackList = 0
 
-  const humpbackTotal = humpbackList.reduce(function(soma, i) {
-    return soma + i;
-  });
+  const humpbackTotal = 0
 
-  const humpbackW = humpbackList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+  const humpbackW = 0
 
   const humpbackAvg =  humpbackTotal / humpbackW
 
   // HUMPBACK WHALES LITS
 
   // WHALES LITS
-  const whaleList = categoryList.slice(1,10).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+  const whaleList = 0
 
-  const whaleTotal = whaleList.reduce(function(soma, i) {
-    return soma + i;
-  });
-
-  const whaleW = whaleList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
-
+  const whaleTotal = 0
+  const whaleW = 0
   const whaleAvg =  whaleTotal / whaleW
 
   // WHALES LITS
 
   // SHARKS LITS
 
-  const sharkList = categoryList.slice(1,20).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 400) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 200)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+  const sharkList = 0
 
-  const sharkTotal = sharkList.reduce(function(soma, i) {
-    return soma + i;
-  });
-
-  const sharkW = sharkList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+  const sharkTotal = 0
+  const sharkW = 0
 
   const sharkAvg =  sharkTotal / sharkW
 
   // SHARKS LITS
 
   // DOLPHINS LITS
-  const dolphinList = categoryList.slice(1,50).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+  const dolphinList = 0
 
-  const dolphinTotal = dolphinList.reduce(function(soma, i) {
-    return soma + i;
-  });
-
-  const dolphinW = dolphinList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+  const dolphinTotal = 0
+  const dolphinW = 0
 
   const dolphinAvg =  dolphinTotal / dolphinW
 
   // DOLPHINS LITS
 
   // TURTLES LITS
-  const turtleList = categoryList.slice(1,50).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+  const turtleList = 0
 
-  const turtleTotal = turtleList.reduce(function(soma, i) {
-    return soma + i;
-  });
-
-  const turtleW = turtleList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+  const turtleTotal = 0
+  const turtleW = 0
 
   const turtleAvg =  turtleTotal / turtleW
 
   // TURTLES LITS
 
   // CRABS LITS
-  const crabList = categoryList.slice(1,100).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+  const crabList = 0
 
-  const crabTotal = crabList.reduce(function(soma, i) {
-    return soma + i;
-  });
-
-  const crabW = crabList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+  const crabTotal = 0
+  const crabW = 0
 
   const crabAvg =  crabTotal / crabW
 
