@@ -20,6 +20,7 @@ import shark from '../../public/images/shark.png';
 import dolphin from '../../public/images/dolphin.png';
 import turtle from '../../public/images/turtle.png';
 import crab from '../../public/images/crab.png';
+import mafa from '../../public/images/mafa.jpg';
 import { Pie, Doughnut, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, LineElement, PointElement, Filler } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
@@ -400,7 +401,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // Line Area
   const label = [];
   const data = [];
-  for(var i of uniquesDay.slice(0,30).reverse()){
+  for(var i of uniquesDay.reverse().slice(0,30).reverse()){
     label.push(i.date);
     data.push(i.uniques);
   }
@@ -444,6 +445,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     },
   };
 
+  function copyCreator(){
+    navigator.clipboard.writeText('0xe341d141133d82def0ee59a3d9365fd2942eeb63');
+  }
+
+  function copyAdd(){
+    navigator.clipboard.writeText('0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
+  }
+
   useEffect(()=>{
 
     setTokenName(details.name.split("(",1).toString());
@@ -465,7 +474,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   return (
     <>
     <Head>
-        <title>Dashboard MafaCoin</title>
+        <title>InfoGraphic MafaCoin</title>
     </Head>
 
     <main className={styles.mainContainer}>
@@ -478,7 +487,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>...<abbr title="Token Details ref: BscScan">.</abbr></p>
             </div>
             <div className={styles.middleCard}>
-              <a><Image src={binance} alt="Binance"/></a>
+              <a><Image src={mafa} alt="Logo Mafa"/></a>
             </div>
             <div className={styles.baseCard}>
               <h4>{tokenName}<br/><span>{symbol}</span></h4>
@@ -486,7 +495,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>TOTAL SUPPLY :<br/><span>{totalSupply}</span></p>
               <p>MARKET CAP :<br/><span>{marketCap}</span></p>
               <p>Contract Creator:<br/><span>{creator}</span></p>
-              <FaCopy size={14} color="white" />
+              <FaCopy onClick={copyCreator} size={14} color="white" />
             </div>
           </div>
         </div>
@@ -496,7 +505,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
             <div className={styles.cardAddress}>
               <div className={styles.uniqueCard}>
                 <h4>Token Address:<span>{address}</span></h4>
-                <FaCopy size={14} color="white" />
+                <FaCopy onClick={copyAdd} size={14} color="white" />
               </div>
             </div>
             <div className={styles.cardNet}>
@@ -552,7 +561,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
       <div className={styles.secondRollContainer}>
         <div className={styles.cardContent1}>
           <div className={styles.cardGrowth}>
-            <div className={styles.topCard}>
+            <div id="growth" className={styles.topCard}>
               <h3>Growth Graphic Daily</h3>
               <p>...<abbr title="Monthly growth of new wallets that bought the token">.</abbr></p>
             </div>
@@ -591,7 +600,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         </div>
         <div className={styles.cardContent2}>
           <div className={styles.cardCatGraph}>
-            <div className={styles.topCard}>
+            <div id="category" className={styles.topCard}>
               <h3>Categories Graphic</h3>
               <p>...<abbr title="Token represented by each range of the scale">.</abbr></p>
             </div>
@@ -605,7 +614,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
         </div>
         <div className={styles.cardContent3}>
           <div className={styles.cardRanking}>
-            <div className={styles.topCard}>
+            <div id="ranking" className={styles.topCard}>
               <h3>Wallets Ranking</h3>
               <p>...<abbr title="Wallet ranking by number of tokens in holding">.</abbr></p>
             </div>
@@ -630,7 +639,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
       <div className={styles.fourthRollContainer}>
         <div className={styles.cardContent1}>
           <div className={styles.cardBuyers}>
-            <div className={styles.topCard}>
+            <div id="hot" className={styles.topCard}>
               <h3>Hot Buyers</h3>
               <p>...<abbr title="Wallets that bought the most tokens in the last 24 hours">.</abbr></p>
             </div>

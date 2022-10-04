@@ -7,6 +7,7 @@ import { AiOutlinePieChart } from 'react-icons/ai';
 import { useEffect, useState } from 'react';
 import Image from 'next/future/image';
 import logo from '../../../public/images/Logo.png';
+import Link from 'next/link';
 
 export function Header(){
   
@@ -16,11 +17,19 @@ export function Header(){
         <Image src={logo} alt="Logo Transpar3ncy"/>
         <CgMenuBoxed id={styles.burguer} size={25} color="white" />
         <h2>InfoGraphic Token</h2>
-        <nav>        
-          <a><FaWallet size={25} color="white" /></a>
-          <a><GiTrophiesShelf size={25} color="white" /></a>
-          <a><AiOutlinePieChart size={25} color="white" /></a>
-          <a><GiProgression size={25} color="white" /></a>
+        <nav>
+          <Link href="#growth">       
+            <a><FaWallet size={25} color="white" /></a>
+          </Link>
+          <Link href="#ranking">
+            <a><GiTrophiesShelf size={25} color="white" /></a>
+          </Link>
+          <Link href="#category">  
+            <a><AiOutlinePieChart size={25} color="white" /></a>
+          </Link>
+          <Link href="#hot">
+            <a><GiProgression size={25} color="white" /></a>
+          </Link>
         </nav>
       </div>
     </header>
