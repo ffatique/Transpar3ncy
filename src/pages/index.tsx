@@ -105,11 +105,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   }
 
   // BURN
-  const burnAddress = categoryList.slice(0,1).map( wallet => {
-    return parseFloat(wallet.tokens.replace(",","").replace(",",""))
-  }).reduce(function(soma, i) {
-    return soma + i;
-  });
+  const burnAddress = 0
 
   const burnAddressW = categoryList.slice(0,1).map( wallet => {
     return wallet.address
@@ -152,7 +148,12 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // BUY AND SELL LISTS 
 
   // HUMPBACK WHALES LITS
-  const humpbackList = 0
+  const humpbackList = categoryList.slice(1,10).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
 
   const humpbackTotal = 0
 
@@ -163,19 +164,32 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // HUMPBACK WHALES LITS
 
   // WHALES LITS
-  const whaleList = 0
+  const whaleList = categoryList.slice(1,10).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
 
   const whaleTotal = 0
+
   const whaleW = 0
+
   const whaleAvg =  whaleTotal / whaleW
 
   // WHALES LITS
 
   // SHARKS LITS
 
-  const sharkList = 0
+  const sharkList = categoryList.slice(1,20).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 400) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 200)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
 
   const sharkTotal = 0
+
   const sharkW = 0
 
   const sharkAvg =  sharkTotal / sharkW
@@ -183,9 +197,15 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // SHARKS LITS
 
   // DOLPHINS LITS
-  const dolphinList = 0
+  const dolphinList = categoryList.slice(1,50).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
 
   const dolphinTotal = 0
+
   const dolphinW = 0
 
   const dolphinAvg =  dolphinTotal / dolphinW
@@ -193,9 +213,15 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // DOLPHINS LITS
 
   // TURTLES LITS
-  const turtleList = 0
+  const turtleList = categoryList.slice(1,50).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
 
   const turtleTotal = 0
+
   const turtleW = 0
 
   const turtleAvg =  turtleTotal / turtleW
@@ -203,9 +229,15 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // TURTLES LITS
 
   // CRABS LITS
-  const crabList = 0
+  const crabList = categoryList.slice(1,100).map( wallet => {
+    
+    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
+      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+       else return 0
+    })
 
   const crabTotal = 0
+
   const crabW = 0
 
   const crabAvg =  crabTotal / crabW
