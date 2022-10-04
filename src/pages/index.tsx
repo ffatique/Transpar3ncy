@@ -1,18 +1,14 @@
-import { GetServerSideProps } from 'next';
+import { GetStaticProps } from 'next';
 import Head from 'next/head';
 import styles from '../styles/home.module.scss';
 import { FaCopy } from 'react-icons/fa';
 import { GoTriangleUp, GoTriangleDown } from 'react-icons/go';
-import { BsCircleFill, BsCircleHalf, BsFillSquareFill, BsGraphDown } from 'react-icons/bs';
+import { BsCircleFill, BsGraphDown } from 'react-icons/bs';
 import { GiProgression } from 'react-icons/gi';
-import { db } from '../services/firebaseConnection';
-import { doc, getDocs, getDoc, where, collection, orderBy, query, limit, startAfter, endBefore} from 'firebase/firestore';
 import { useEffect, useState } from 'react';
-import { format, startOfYesterday, getMonth } from 'date-fns';
+import { format, startOfYesterday } from 'date-fns';
 import Image from 'next/future/image';
 import binance from '../../public/images/binance.png';
-import ethereum from '../../public/images/ethereum.png';
-import polygon from '../../public/images/polygon.png';
 import whale from '../../public/images/whale.png';
 import hwhale from '../../public/images/hwhale.png';
 import sardine from '../../public/images/sardine.png';
@@ -25,10 +21,11 @@ import { Pie, Doughnut, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, LineElement, PointElement, Filler } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, CategoryScale, LinearScale, LineElement, PointElement, Filler);
-
 const axios = require('axios');
 const puppeteer = require('puppeteer');
 
+
+//////////-------------------BEGIN / INTERFACES------------------------------////////////
 interface List{
   position: string,
   address: string,
@@ -69,10 +66,10 @@ interface Token{
   hotWallets: ListH[],
   uniquesDaily: ListU[],
 }
+//////////-------------------INTERFACES / END------------------------------////////////
+
 
 export default function Home({ details, info, totalUniques, lastUnique, categoryWallets, rankingWallets, hotWallets, uniquesDaily }: Token){
-  const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
-  const tradePair =	'0x591b7b63dcd9ac56573418a62ab37c936be7459c';
 
   const [tokenName, setTokenName] = useState("");
   const [symbol, setSymbol] = useState("");
@@ -88,9 +85,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const [hotList, setHotList] = useState(hotWallets);
   const [price, setPrice] = useState('');
   const [uniquesDay, setUniquesDay] = useState(uniquesDaily);
-    
+
+  const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
+  const tradePair =	'0x591b7b63dcd9ac56573418a62ab37c936be7459c';
   const inactives = parseInt(totalWallets) - parseInt(holdersActives)
   const variation = (parseInt(wallets) / parseInt(totalWallets)).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})
+
+
+//////////-------------------BEGIN / LISTS------------------------------////////////
 
   function compare(a: { amount: number; }, b: { amount: number}) {
     if ( a.amount > b.amount ){
@@ -102,12 +104,20 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     return 0;
   }
 
+  // BURN
   const burnAddress = categoryList.slice(0,1).map( wallet => {
     return parseFloat(wallet.tokens.replace(",","").replace(",",""))
   }).reduce(function(soma, i) {
     return soma + i;
   });
 
+  const burnAddressW = categoryList.slice(0,1).map( wallet => {
+    return wallet.address
+  })
+
+  // BURN
+
+  // BUY AND SELL LISTS
   const buyerList = hotList.map( wallet => {
     
     if(wallet.sender === tradePair){
@@ -139,6 +149,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     }
   }).sort(compare)
 
+  // BUY AND SELL LISTS 
+
+  // HUMPBACK WHALES LITS
   const humpbackList = categoryList.slice(1,10).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
@@ -158,7 +171,10 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   }, 0)
 
   const humpbackAvg =  humpbackTotal / humpbackW
-  
+
+  // HUMPBACK WHALES LITS
+
+  // WHALES LITS
   const whaleList = categoryList.slice(1,10).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
@@ -178,6 +194,10 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   }, 0)
 
   const whaleAvg =  whaleTotal / whaleW
+
+  // WHALES LITS
+
+  // SHARKS LITS
 
   const sharkList = categoryList.slice(1,20).map( wallet => {
     
@@ -199,6 +219,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   const sharkAvg =  sharkTotal / sharkW
 
+  // SHARKS LITS
+
+  // DOLPHINS LITS
   const dolphinList = categoryList.slice(1,50).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
@@ -219,6 +242,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   const dolphinAvg =  dolphinTotal / dolphinW
 
+  // DOLPHINS LITS
+
+  // TURTLES LITS
   const turtleList = categoryList.slice(1,50).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
@@ -239,6 +265,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   const turtleAvg =  turtleTotal / turtleW
 
+  // TURTLES LITS
+
+  // CRABS LITS
   const crabList = categoryList.slice(1,100).map( wallet => {
     
     if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
@@ -259,16 +288,22 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   const crabAvg =  crabTotal / crabW
 
+  // CRABS LITS
+
+  // SARDINES LITS
   const sardineW = parseInt(holdersActives) - (humpbackW + whaleW + sharkW + dolphinW + turtleW + crabW)
   const sardineTotal = 1000000000 - (burnAddress + humpbackTotal + whaleTotal + sharkTotal + dolphinTotal + turtleTotal + crabTotal)
   const sardineAvg =  sardineTotal  / sardineW
 
-  console.log(uniquesDay)
+  // SARDINES LITS
 
-  // Graphs
+//////////-------------------LISTS / END------------------------------////////////
 
-  // Pie
 
+
+//////////-------------------BEGIN / GRAPHICS------------------------------////////////
+
+  // PIE GRAPHIC
   const pieData = {
     maintainAspectRatio: false,
     responsive: false,
@@ -326,8 +361,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     }
   };
 
-  // Doughnut
+  // PIE GRAPHIC
 
+  // DOUGHNUT GRAPHIC
   const doughnutData = {
     maintainAspectRatio: false,
     responsive: false,
@@ -397,8 +433,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     }
   };
 
+  // DOUGHNUT GRAPHIC
  
-  // Line Area
+  // LINE ARE GRAPHIC
   const label = [];
   const data = [];
   for(var i of uniquesDay.reverse().slice(0,30).reverse()){
@@ -423,6 +460,11 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const areaOptions = {
     responsive: true,
     plugins:{
+      tooltip:{
+        titleFont: {size: 16},
+        bodyFont: {size: 16},
+        padding: 2,
+      },
       legend: {
         display: false,
       },
@@ -445,6 +487,14 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     },
   };
 
+  // LINE ARE GRAPHIC
+
+//////////-------------------GRAPHICS / END------------------------------////////////
+
+
+
+//////////-------------------FUNCTIONS------------------------------////////////
+
   function copyCreator(){
     navigator.clipboard.writeText('0xe341d141133d82def0ee59a3d9365fd2942eeb63');
   }
@@ -452,6 +502,12 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   function copyAdd(){
     navigator.clipboard.writeText('0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
   }
+
+//////////-------------------FUNCTIONS------------------------------////////////
+
+
+
+//////////-------------------PAGE------------------------------////////////
 
   useEffect(()=>{
 
@@ -470,6 +526,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     setPrice(details.value.toString().replace("(","").replace(")","").replace("@","").replace("$",""));
   // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
+
  
   return (
     <>
@@ -478,7 +535,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     </Head>
 
     <main className={styles.mainContainer}>
-
+      
       <div className={styles.firstRollContainer}>
         <div className={styles.cardContent1}>
           <div className={styles.cardToken}>
@@ -507,13 +564,16 @@ export default function Home({ details, info, totalUniques, lastUnique, category
                 <h4>Token Address:<span>{address}</span></h4>
                 <FaCopy onClick={copyAdd} size={14} color="white" />
               </div>
+              <div className={styles.uniqueCard2}>
+                <h4>Burn Address:<span>{burnAddressW}</span></h4>
+                <h3>Burned:<span>{burnAddress.toLocaleString("en")} MafaCoin</span></h3>
+                <h3>Value:<span>{ (parseFloat(price) * parseFloat(burnAddress.toString().replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></h3>
+              </div>
             </div>
             <div className={styles.cardNet}>
               <div className={styles.uniqueCard}>
-                <a><Image src={ethereum} alt="Ethereum"/></a>
-                <a><Image src={polygon} alt="Polygon"/></a>
-                <a><Image src={binance} alt="Binance"/></a>
                 <h2>Network</h2>
+                <a><Image src={binance} alt="Binance"/></a>
               </div>
             </div>
           </div>
@@ -786,8 +846,12 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 }
 
 
-export const getServerSideProps: GetServerSideProps = async ({ req }) => {
+//////////-------------------SERVER------------------------------////////////
+
+export const getStaticProps: GetStaticProps = async () => {
   const contract = '0x6dd60afb2586d31bf390450adf5e6a9659d48c4a';
+
+  //WEBSCRAPING AND API CONSULTS
 
   async function getDetails() {
     const browser = await puppeteer.launch();
@@ -990,7 +1054,8 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
       rankingWallets,
       hotWallets,
       uniquesDaily,
-    }
+    },
+    revalidate: 60 * 1440 // Revalidate 24 hours
   }
 
 }

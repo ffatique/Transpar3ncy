@@ -1,10 +1,8 @@
 import styles from './styles.module.scss';
-import { BsFillArrowUpRightCircleFill } from 'react-icons/bs';
 import { CgMenuBoxed } from 'react-icons/cg';
 import { FaWallet } from 'react-icons/fa';
 import { GiTrophiesShelf, GiProgression } from 'react-icons/gi';
 import { AiOutlinePieChart } from 'react-icons/ai';
-import { useEffect, useState } from 'react';
 import Image from 'next/future/image';
 import logo from '../../../public/images/Logo.png';
 import Link from 'next/link';
