@@ -22,7 +22,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, CategoryScale, LinearScale, LineElement, PointElement, Filler);
 const axios = require('axios');
-const puppeteer = require('puppeteer');
+import puppeteer from 'puppeteer';
 
 
 //////////-------------------BEGIN / INTERFACES------------------------------////////////
@@ -847,8 +847,12 @@ export const getStaticProps: GetStaticProps = async () => {
 
   //WEBSCRAPING AND API CONSULTS
 
+  const options = {
+    args: ['--no-sandbox'],
+  }
+
   async function getDetails() {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.goto('https://bscscan.com/address/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
   
@@ -865,7 +869,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   
   async function getInfo() {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.goto('https://bscscan.com/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
   
@@ -884,7 +888,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   
   async function getTotalWallets() {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.goto('https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
   
@@ -901,7 +905,7 @@ export const getStaticProps: GetStaticProps = async () => {
   async function getLastWallets() {
     const startYesterday = startOfYesterday();
     const formated = format(startYesterday,'yyyy-MM-dd');
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.goto(`https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a/receivers?from=${formated}&till=${formated}`);
     
@@ -918,7 +922,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   
   async function getCategoryWallets() {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=100');
     
@@ -941,7 +945,7 @@ export const getStaticProps: GetStaticProps = async () => {
   };
   
   async function getRankingWallets() {
-    const browser = await puppeteer.launch({ args: ['--no-sandbox'] });
+    const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
     await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=10');
     
