@@ -22,7 +22,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearSca
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, CategoryScale, LinearScale, LineElement, PointElement, Filler);
 const axios = require('axios');
-import puppeteer from 'puppeteer';
+const puppeteer = require('puppeteer');
 
 
 //////////-------------------BEGIN / INTERFACES------------------------------////////////
@@ -847,8 +847,21 @@ export const getStaticProps: GetStaticProps = async () => {
 
   //WEBSCRAPING AND API CONSULTS
 
-  const options = {
-    args: ['--no-sandbox'],
+  const options ={
+    product: 'firefox',
+    headless: true,
+    args: [
+        '--disable-gpu',
+        '--disable-dev-shm-usage',
+        '--disable-setuid-sandbox',
+        '--no-first-run',
+        '--no-sandbox',
+        '--no-zygote',
+        '--deterministic-fetch',
+        '--disable-features=IsolateOrigins',
+        '--disable-site-isolation-trials',
+         '--single-process',
+    ],
   }
 
   async function getDetails() {
