@@ -862,6 +862,7 @@ export const getStaticProps: GetStaticProps = async () => {
         '--disable-site-isolation-trials',
          '--single-process',
     ],
+    executablePath: '../../node_modules/puppeteer/lib/cjs/puppeteer/node/FirefoxLauncher.js'
   }
 
   async function getDetails() {
