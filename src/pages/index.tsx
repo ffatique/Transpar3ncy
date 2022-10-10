@@ -6,7 +6,6 @@ import { GoTriangleUp, GoTriangleDown } from 'react-icons/go';
 import { BsCircleFill, BsGraphDown } from 'react-icons/bs';
 import { GiProgression } from 'react-icons/gi';
 import { useEffect, useState } from 'react';
-import { format, startOfYesterday } from 'date-fns';
 import Image from 'next/future/image';
 import binance from '../../public/images/binance.png';
 import whale from '../../public/images/whale.png';
@@ -21,11 +20,19 @@ import { Pie, Doughnut, Line } from 'react-chartjs-2';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, LineElement, PointElement, Filler } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 ChartJS.register(ArcElement, Tooltip, Legend, ChartDataLabels, CategoryScale, LinearScale, LineElement, PointElement, Filler);
-const axios = require('axios');
-const puppeteer = require('puppeteer');
+import { getDetails } from './api/getDetails';
+import { getInfo } from './api/getInfo';
+import { getTotalWallets } from './api/getTotalWallets';
+import { getLastWallets } from './api/getLastWallets';
+import { getCategoryWallets } from './api/getCategoryWallets';
+import { getRankingWallets } from './api/getRankingWallets';
+import { getHotWallets } from './api/getHotWallets';
+import { getUniquesDaily } from './api/getUniquesDaily';
 
 
-//////////-------------------BEGIN / INTERFACES------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN INTERFACES
+//--------------------------------------------------------------------------------------------------//
 interface List{
   position: string,
   address: string,
@@ -66,10 +73,15 @@ interface Token{
   hotWallets: ListH[],
   uniquesDaily: ListU[],
 }
-//////////-------------------INTERFACES / END------------------------------////////////
+
+//--------------------------------------------------------------------------------------------------//
+// END INTERFACES
+//--------------------------------------------------------------------------------------------------//
 
 
 export default function Home({ details, info, totalUniques, lastUnique, categoryWallets, rankingWallets, hotWallets, uniquesDaily }: Token){
+  const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
+  const tradePair =	'0x591b7b63dcd9ac56573418a62ab37c936be7459c';
 
   const [tokenName, setTokenName] = useState("");
   const [symbol, setSymbol] = useState("");
@@ -85,223 +97,225 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   const [hotList, setHotList] = useState(hotWallets);
   const [price, setPrice] = useState('');
   const [uniquesDay, setUniquesDay] = useState(uniquesDaily);
-
-  const address = "0x6dd60afb2586d31bf390450adf5e6a9659d48c4a";
-  const tradePair =	'0x591b7b63dcd9ac56573418a62ab37c936be7459c';
-  const inactives = parseInt(totalWallets) - parseInt(holdersActives)
-  const variation = (parseInt(wallets) / parseInt(totalWallets)).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2})
+  const [inactives, setInactives] = useState(0);
+  const [variation, setVariaton] = useState('');
 
 
-//////////-------------------BEGIN / LISTS------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN LISTS
+//--------------------------------------------------------------------------------------------------//
 
-  function compare(a: { amount: number; }, b: { amount: number}) {
-    if ( a.amount > b.amount ){
-      return -1;
-    }
-    if ( a.amount < b.amount ){
-      return 1;
-    }
-    return 0;
+function compare(a: { amount: number; }, b: { amount: number}) {
+  if ( a.amount > b.amount ){
+    return -1;
+  }
+  if ( a.amount < b.amount ){
+    return 1;
+  }
+  return 0;
+}
+
+// BURN
+const burnAddress = categoryList.slice(0,1).map( wallet => {
+  return parseFloat(wallet.tokens.replace(",","").replace(",",""))
+}).reduce(function(soma, i) {
+  return soma + i;
+});
+
+const burnAddressW = categoryList.slice(0,1).map( wallet => {
+  return wallet.address
+})
+
+// BURN
+
+// BUY AND SELL LISTS
+const buyerList = hotList.map( wallet => {
+  
+  if(wallet.sender === tradePair){
+    return {
+      buyer: wallet.receiver,
+      amount: wallet.amount,
+    } 
+  } else {
+    return {
+      buyer: wallet.receiver,
+      amount: 0,
+    } 
   }
 
-  // BURN
-  const burnAddress = categoryList.slice(0,1).map( wallet => {
-    return parseFloat(wallet.tokens.replace(",","").replace(",",""))
-  }).reduce(function(soma, i) {
-    return soma + i;
-  });
+}).sort(compare)
 
-  const burnAddressW = categoryList.slice(0,1).map( wallet => {
-    return wallet.address
+const sellerList = hotList.map( wallet => {
+  
+  if(wallet.receiver === tradePair){
+    return {
+      seller: wallet.sender,
+      amount: wallet.amount,
+    } 
+  } else {
+    return {
+      seller: wallet.sender,
+      amount: 0,
+    } 
+  }
+}).sort(compare)
+
+// BUY AND SELL LISTS 
+
+// HUMPBACK WHALES LITS
+const humpbackList = categoryList.slice(1,10).map( wallet => {
+  
+  if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
+    return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+     else return 0
   })
 
-  // BURN
+const humpbackTotal = humpbackList.reduce(function(soma, i) {
+  return soma + i;
+});
 
-  // BUY AND SELL LISTS
-  const buyerList = hotList.map( wallet => {
-    
-    if(wallet.sender === tradePair){
-      return {
-        buyer: wallet.receiver,
-        amount: wallet.amount,
-      } 
-    } else {
-      return {
-        buyer: wallet.receiver,
-        amount: 0,
-      } 
-    }
+const humpbackW = humpbackList.reduce((total, valor) => {
+  if (valor > 0 ) {
+    return total + 1;
+  }
+  return total;
+}, 0)
 
-  }).sort(compare) 
+const humpbackAvg =  humpbackTotal / humpbackW
 
-  const sellerList = hotList.map( wallet => {
-    
-    if(wallet.receiver === tradePair){
-      return {
-        seller: wallet.sender,
-        amount: wallet.amount,
-      } 
-    } else {
-      return {
-        seller: wallet.sender,
-        amount: 0,
-      } 
-    }
-  }).sort(compare)
+// HUMPBACK WHALES LITS
 
-  // BUY AND SELL LISTS 
+// WHALES LITS
+const whaleList = categoryList.slice(1,10).map( wallet => {
+  
+  if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
+    return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+     else return 0
+  })
 
-  // HUMPBACK WHALES LITS
-  const humpbackList = categoryList.slice(1,10).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 100)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+const whaleTotal = whaleList.reduce(function(soma, i) {
+  return soma + i;
+});
 
-  const humpbackTotal = humpbackList.reduce(function(soma, i) {
-    return soma + i;
-  });
+const whaleW = whaleList.reduce((total, valor) => {
+  if (valor > 0 ) {
+    return total + 1;
+  }
+  return total;
+}, 0)
 
-  const humpbackW = humpbackList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+const whaleAvg =  whaleTotal / whaleW
 
-  const humpbackAvg =  humpbackTotal / humpbackW
+// WHALES LITS
 
-  // HUMPBACK WHALES LITS
+// SHARKS LITS
 
-  // WHALES LITS
-  const whaleList = categoryList.slice(1,10).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 200) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 100)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+const sharkList = categoryList.slice(1,20).map( wallet => {
+  
+  if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 400) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 200)){
+    return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+     else return 0
+  })
 
-  const whaleTotal = whaleList.reduce(function(soma, i) {
-    return soma + i;
-  });
+const sharkTotal = sharkList.reduce(function(soma, i) {
+  return soma + i;
+});
 
-  const whaleW = whaleList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+const sharkW = sharkList.reduce((total, valor) => {
+  if (valor > 0 ) {
+    return total + 1;
+  }
+  return total;
+}, 0)
 
-  const whaleAvg =  whaleTotal / whaleW
+const sharkAvg =  sharkTotal / sharkW
 
-  // WHALES LITS
+// SHARKS LITS
 
-  // SHARKS LITS
+// DOLPHINS LITS
+const dolphinList = categoryList.slice(1,50).map( wallet => {
+  
+  if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
+    return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+     else return 0
+  })
 
-  const sharkList = categoryList.slice(1,20).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 400) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 200)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+const dolphinTotal = dolphinList.reduce(function(soma, i) {
+  return soma + i;
+});
 
-  const sharkTotal = sharkList.reduce(function(soma, i) {
-    return soma + i;
-  });
+const dolphinW = dolphinList.reduce((total, valor) => {
+  if (valor > 0 ) {
+    return total + 1;
+  }
+  return total;
+}, 0)
 
-  const sharkW = sharkList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+const dolphinAvg =  dolphinTotal / dolphinW
 
-  const sharkAvg =  sharkTotal / sharkW
+// DOLPHINS LITS
 
-  // SHARKS LITS
+// TURTLES LITS
+const turtleList = categoryList.slice(1,50).map( wallet => {
+  
+  if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
+    return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+     else return 0
+  })
 
-  // DOLPHINS LITS
-  const dolphinList = categoryList.slice(1,50).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 666.6666667) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 400)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+const turtleTotal = turtleList.reduce(function(soma, i) {
+  return soma + i;
+});
 
-  const dolphinTotal = dolphinList.reduce(function(soma, i) {
-    return soma + i;
-  });
+const turtleW = turtleList.reduce((total, valor) => {
+  if (valor > 0 ) {
+    return total + 1;
+  }
+  return total;
+}, 0)
 
-  const dolphinW = dolphinList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+const turtleAvg =  turtleTotal / turtleW
 
-  const dolphinAvg =  dolphinTotal / dolphinW
+// TURTLES LITS
 
-  // DOLPHINS LITS
+// CRABS LITS
+const crabList = categoryList.slice(1,100).map( wallet => {
+  
+  if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
+    return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
+     else return 0
+  })
 
-  // TURTLES LITS
-  const turtleList = categoryList.slice(1,50).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 1000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 666.6666667)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+const crabTotal = crabList.reduce(function(soma, i) {
+  return soma + i;
+});
 
-  const turtleTotal = turtleList.reduce(function(soma, i) {
-    return soma + i;
-  });
+const crabW = crabList.reduce((total, valor) => {
+  if (valor > 0 ) {
+    return total + 1;
+  }
+  return total;
+}, 0)
 
-  const turtleW = turtleList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
+const crabAvg =  crabTotal / crabW
 
-  const turtleAvg =  turtleTotal / turtleW
+// CRABS LITS
 
-  // TURTLES LITS
+// SARDINES LITS
+const sardineW = parseInt(holdersActives) - (humpbackW + whaleW + sharkW + dolphinW + turtleW + crabW)
+const sardineTotal = 1000000000 - (burnAddress + humpbackTotal + whaleTotal + sharkTotal + dolphinTotal + turtleTotal + crabTotal)
+const sardineAvg =  sardineTotal  / sardineW
 
-  // CRABS LITS
-  const crabList = categoryList.slice(1,100).map( wallet => {
-    
-    if(parseFloat(wallet.tokens.replace(",","").replace(",","")) > (1000000000 / 2000) && parseFloat(wallet.tokens.replace(",","").replace(",","")) <= (1000000000 / 1000)){
-      return parseFloat(wallet.tokens.replace(",","").replace(",","")) }
-       else return 0
-    })
+// SARDINES LITS
 
-  const crabTotal = crabList.reduce(function(soma, i) {
-    return soma + i;
-  });
-
-  const crabW = crabList.reduce((total, valor) => {
-    if (valor > 0 ) {
-      return total + 1;
-    }
-    return total;
-  }, 0)
-
-  const crabAvg =  crabTotal / crabW
-
-  // CRABS LITS
-
-  // SARDINES LITS
-  const sardineW = parseInt(holdersActives) - (humpbackW + whaleW + sharkW + dolphinW + turtleW + crabW)
-  const sardineTotal = 1000000000 - (burnAddress + humpbackTotal + whaleTotal + sharkTotal + dolphinTotal + turtleTotal + crabTotal)
-  const sardineAvg =  sardineTotal  / sardineW
-
-  // SARDINES LITS
-
-//////////-------------------LISTS / END------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// END LISTS
+//--------------------------------------------------------------------------------------------------//
 
 
-
-//////////-------------------BEGIN / GRAPHICS------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN GRAPHICS
+//--------------------------------------------------------------------------------------------------//
 
   // PIE GRAPHIC
   const pieData = {
@@ -435,7 +449,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
   // LINE ARE GRAPHIC
   const label = [];
   const data = [];
-  for(var i of uniquesDay.reverse().slice(0,30).reverse()){
+  for(var i of uniquesDay.slice(2,32)){
     label.push(i.date);
     data.push(i.uniques);
   }
@@ -483,11 +497,15 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 
   // LINE ARE GRAPHIC
 
-//////////-------------------GRAPHICS / END------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// END GRAPHICS
+//--------------------------------------------------------------------------------------------------//
 
 
-
-//////////-------------------FUNCTIONS------------------------------////////////
+ 
+//--------------------------------------------------------------------------------------------------//
+// FUNCTIONS
+//--------------------------------------------------------------------------------------------------//
 
   function copyCreator(){
     navigator.clipboard.writeText('0xe341d141133d82def0ee59a3d9365fd2942eeb63');
@@ -497,11 +515,15 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     navigator.clipboard.writeText('0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
   }
 
-//////////-------------------FUNCTIONS------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// FUNCTION
+//--------------------------------------------------------------------------------------------------//
 
 
 
-//////////-------------------PAGE------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// PAGE
+//--------------------------------------------------------------------------------------------------//
 
   useEffect(()=>{
 
@@ -518,7 +540,9 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     setRankingList(rankingWallets);
     setHotList(hotWallets);
     setPrice(details.value.toString().replace("(","").replace(")","").replace("@","").replace("$",""));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    setInactives(parseInt(totalUniques.uniqueWallets) - parseInt(info.holders.split("address",1).toString().replace(",","")));
+    setVariaton((parseInt(lastUnique.lastDayUniqueWallets) / parseInt(totalUniques.uniqueWallets)).toLocaleString("pt-BR", { style: "percent",  minimumFractionDigits: 2}));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   },[]);
 
  
@@ -526,6 +550,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
     <>
     <Head>
         <title>InfoGraphic MafaCoin</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     </Head>
 
     <main className={styles.mainContainer}>
@@ -640,7 +665,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>Marine Scale</p>
             </div>
             <div className={styles.listCard}>
-              <ul><p>Place MarineScale &ensp; &ensp;  &ensp; TotalSupply%</p>
+              <ul><p>Place MarineScale <span>TotalSupply%</span></p>
                 <li><h4>1</h4><Image src={hwhale} alt="Humpback Whales"/><p>Humpback Whales</p><span>1%+</span></li>
                 <li><h4>2</h4><Image src={whale} alt="Whales"/><p>Whales</p><span>0,5% - 1%</span></li>
                 <li><h4>3</h4><Image src={shark} alt="Sharks"/><p>Sharks</p><span>0,25% - 0,5%</span></li>
@@ -673,7 +698,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
               <p>...<abbr title="Wallet ranking by number of tokens in holding">.</abbr></p>
             </div>
             <div className={styles.listRankingCard}>
-              <ul><p>Position Wallet <span>  &ensp; Value</span></p>
+              <ul><p>Position Wallet <span>Value</span></p>
               {rankingList.slice(1,4).map((wallet, index)=>{
                 return(
                   <li key={index}><h4>#{parseInt(wallet.position) - 1}</h4><p>{wallet.address}</p><span>{ (parseFloat(price) * parseFloat(wallet.tokens.replace(",","").replace(",",""))).toLocaleString("en", { style: "currency", currency: "USD"})}</span></li>
@@ -689,7 +714,7 @@ export default function Home({ details, info, totalUniques, lastUnique, category
           </div>
         </div>
       </div>
-
+      
       <div className={styles.fourthRollContainer}>
         <div className={styles.cardContent1}>
           <div className={styles.cardBuyers}>
@@ -840,222 +865,22 @@ export default function Home({ details, info, totalUniques, lastUnique, category
 }
 
 
-//////////-------------------SERVER------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// SERVER
+//--------------------------------------------------------------------------------------------------//
 
 export const getStaticProps: GetStaticProps = async () => {
-  const contract = '0x6dd60afb2586d31bf390450adf5e6a9659d48c4a';
 
   //WEBSCRAPING AND API CONSULTS
-
-  const options ={
-    product: 'firefox',
-    headless: true,
-    args: [
-        '--disable-gpu',
-        '--disable-dev-shm-usage',
-        '--disable-setuid-sandbox',
-        '--no-first-run',
-        '--no-sandbox',
-        '--no-zygote',
-        '--deterministic-fetch',
-        '--disable-features=IsolateOrigins',
-        '--disable-site-isolation-trials',
-         '--single-process',
-    ],
-    executablePath: '../../node_modules/puppeteer/lib/cjs/puppeteer/node/FirefoxLauncher.js'
-  }
-
-  async function getDetails() {
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.goto('https://bscscan.com/address/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
-  
-    const token = await page.evaluate(() =>{
-      return{
-        name: document.querySelector('#ContentPlaceHolder1_tr_tokeninfo > div > div.col-md-8 > a')?.innerHTML,
-        value: document.querySelector('#ContentPlaceHolder1_tr_tokeninfo > div > div.col-md-8 > span')?.innerHTML,
-        creator: document.querySelector('#ContentPlaceHolder1_trContract > div > div.col-md-8 > a')?.innerHTML,
-      };
-    });
-  
-    await browser.close();
-    return token
-  };
-  
-  async function getInfo() {
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.goto('https://bscscan.com/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
-  
-    const token = await page.evaluate(() =>{
-      return{
-        symbol: document.querySelector('#ContentPlaceHolder1_divSummary > div.row.mb-4 > div.col-md-6.mb-3.mb-md-0 > div > div.card-body > div.row.align-items-center > div.col-md-8.font-weight-medium > b')?.innerHTML,
-        totalSupply: document.querySelector('#ContentPlaceHolder1_divSummary > div.row.mb-4 > div.col-md-6.mb-3.mb-md-0 > div > div.card-body > div.row.align-items-center > div.col-md-8.font-weight-medium > span.hash-tag.text-truncate')?.innerHTML,
-        marketCap: document.querySelector('#pricebutton')?.innerHTML,
-        decimals: document.querySelector('#ContentPlaceHolder1_trDecimals > div > div.col-md-8')?.innerHTML,
-        holders: document.querySelector('#ContentPlaceHolder1_tr_tokenHolders > div > div.col-md-8 > div > div')?.innerHTML,
-      };
-    });
-  
-    await browser.close();
-    return token
-  };
-  
-  async function getTotalWallets() {
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.goto('https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a');
-  
-    const token = await page.evaluate(() =>{
-      return{
-        uniqueWallets: document.querySelector('body > div:nth-child(4) > div:nth-child(5) > div > div:nth-child(3) > div > div.card-body > div > div:nth-child(1) > div > div.table-responsive > table > tbody > tr:nth-child(3) > td:nth-child(2) > span')?.innerHTML,
-      };
-    });
-  
-    await browser.close();
-    return token
-  };
-  
-  async function getLastWallets() {
-    const startYesterday = startOfYesterday();
-    const formated = format(startYesterday,'yyyy-MM-dd');
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.goto(`https://explorer.bitquery.io/bsc/token/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a/receivers?from=${formated}&till=${formated}`);
-    
-    await page.click('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(3) > g:nth-child(3) > path');
-    await page.waitForTimeout(50);
-    const token = await page.evaluate(() =>{
-      return{
-        lastDayUniqueWallets: document.querySelector('body > div:nth-child(4) > div:nth-child(5) > div:nth-child(4) > div:nth-child(1) > div > div.card-body > div > div:nth-child(1) > div > div:nth-child(1) > div > div:nth-child(1) > div > svg > g:nth-child(5) > g > g:nth-child(3) > text:nth-child(2)')?.innerHTML,
-      };
-    });
-  
-    await browser.close();
-    return token
-  };
-  
-  async function getCategoryWallets() {
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=100');
-    
-    const walletList = await page.evaluate(() => {
-        
-      const nodeList = document.querySelectorAll('#ContentPlaceHolder1_resultrows > table > tbody > tr');
-      const walletsArray = [...nodeList]
-  
-      const list = walletsArray.map( wallet => ({
-        position: wallet.querySelector('td')?.innerHTML,
-        address: wallet.querySelector('a')?.innerHTML,
-        tokens: wallet.querySelector('td:nth-child(3)')?.innerHTML,
-        percent: wallet.querySelector('td:nth-child(4)')?.innerHTML,
-      }))
-      return list
-    })
-    
-    await browser.close();
-    return walletList
-  };
-  
-  async function getRankingWallets() {
-    const browser = await puppeteer.launch(options);
-    const page = await browser.newPage();
-    await page.goto('https://bscscan.com/token/tokenholderchart/0x6dd60afb2586d31bf390450adf5e6a9659d48c4a?range=10');
-    
-    const walletList = await page.evaluate(() => {
-        
-      const nodeList = document.querySelectorAll('#ContentPlaceHolder1_resultrows > table > tbody > tr');
-      const walletsArray = [...nodeList]
-  
-      const list = walletsArray.map( wallet => ({
-        position: wallet.querySelector('td')?.innerHTML,
-        address: wallet.querySelector('a')?.innerHTML,
-        tokens: wallet.querySelector('td:nth-child(3)')?.innerHTML,
-      }))
-      return list
-    })
-    
-    await browser.close();
-    return walletList
-  };
-  
-  async function getHotWallerts(){
-    const startYesterday = startOfYesterday();
-    const formated = format(startYesterday,'yyyy-MM-dd');
-      
-    var data = JSON.stringify({
-      "query": "query ($network: EthereumNetwork!, $token: String!, $limit: Int!, $offset: Int!, $from: ISO8601DateTime, $till: ISO8601DateTime) {\n  ethereum(network: $network) {\n    transfers(\n      options: {desc: \"amount\", limit: $limit, offset: $offset}\n      date: {since: $from, till: $till}\n      amount: {gt: 0}\n      currency: {is: $token}\n    ) {\n      block {\n        timestamp {\n          time(format: \"%Y-%m-%d %H:%M:%S\")\n        }\n        height\n      }\n      sender {\n        address\n      }\n      receiver {\n        address\n      }\n      transaction {\n        hash\n      }\n      amount\n    }\n  }\n}\n",
-      "variables": `{\n  \"limit\": 40,\n  \"offset\": 0,\n  \"network\": \"bsc\",\n  \"token\": \"0x6dd60afb2586d31bf390450adf5e6a9659d48c4a\",\n  \"from\": \"${formated}\",\n  \"till\": \"${formated}T23:59:59\",\n  \"dateFormat\": \"%Y-%m-%d\"\n}`
-    });
-  
-    var config = {
-      method: 'post',
-      url: 'https://graphql.bitquery.io',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'X-API-KEY': 'BQY8tkWK5F4ilrr7FxthT8BVeqTy9hHR'
-      },
-      data : data
-    };
-  
-    const listHot = await axios(config)
-    .then(function (response: any) {
-      const list = response.data.data.ethereum.transfers.map( (wallet: any) =>({
-        sender: wallet.sender.address,
-        receiver: wallet.receiver.address,
-        amount: wallet.amount,
-    }))
-      return list
-    })
-    .catch(function (error: any) {
-      console.log(error);
-    });
-    return listHot
-  };
-
-  async function getWalletsDaily(){
-    const startYesterday = startOfYesterday();
-    const formated = format(startYesterday,'yyyy-MM-dd');
-      
-    var data = JSON.stringify({
-      "query": "query ($network: EthereumNetwork!, $token: String!, $dateFormat: String!, $from: ISO8601DateTime, $till: ISO8601DateTime) {\n  ethereum(network: $network) {\n    transfers(\n      currency: {is: $token}\n      height: {gt: 0}\n      amount: {gt: 0}\n      date: {since: $from, till: $till}\n    ) {\n      date {\n        date(format: $dateFormat)\n      }\n      count: countBigInt(uniq: receivers)\n    }\n  }\n}\n",
-      "variables": `{\"limit\":1000,\"offset\":0,\"network\":\"bsc\",\"token\":\"0x6dd60afb2586d31bf390450adf5e6a9659d48c4a\",\"from\":\"2022-02-26\",\"till\":\"${formated}T23:59:59\",\"dateFormat\":\"%Y-%m-%d\"}`
-   });
-  
-    var config = {
-      method: 'post',
-      url: 'https://graphql.bitquery.io',
-      headers: { 
-        'Content-Type': 'application/json', 
-        'X-API-KEY': 'BQY8tkWK5F4ilrr7FxthT8BVeqTy9hHR'
-      },
-      data : data
-    };
-  
-    const listUniques = await axios(config)
-    .then(function (response: any) {
-      const list = response.data.data.ethereum.transfers.map( (wallet: any) =>({
-        date: format(new Date(wallet.date.date), 'MM-dd'),
-        uniques: parseFloat(wallet.count),
-    }))
-      return list
-    })
-    .catch(function (error: any) {
-      console.log(error);
-    });
-    return listUniques
-  };
-    
   const details = await getDetails();
   const info = await getInfo();
   const totalUniques = await getTotalWallets();
   const lastUnique = await getLastWallets();
   const categoryWallets = await getCategoryWallets();
   const rankingWallets = await getRankingWallets();
-  const hotWallets = await getHotWallerts();
-  const uniquesDaily = await getWalletsDaily();
-        
+  const hotWallets = await getHotWallets();
+  const uniquesDaily = await getUniquesDaily();
+
   return{
     props: {
       details,

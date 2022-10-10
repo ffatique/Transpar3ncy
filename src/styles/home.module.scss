@@ -1,10 +1,14 @@
-//////////-------------------MAIN------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// MAIN
+//--------------------------------------------------------------------------------------------------//
 .mainContainer{
-  height: 100%;
+  height: auto;
   width: 100%;
 }
 
-//////////-------------------FIRSTROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN FIRST ROLL
+//--------------------------------------------------------------------------------------------------//
 .firstRollContainer{
   max-width: 1120px;
   height: 480px;
@@ -12,7 +16,6 @@
   display: flex;
   margin-top: 2rem;
   
-
   .cardContent1{
     height: 480px;
     width: 240px;
@@ -355,7 +358,9 @@
 }
 // HOLDERS
 
-// GENERAL CSS
+//--------------------------------------------------------------------------------------------------//
+// GENERAL CSS BEGIN
+//--------------------------------------------------------------------------------------------------//
 .topCard{
   height: 5rem;
   width: 100%;
@@ -400,13 +405,20 @@
     color: var(--gray);
   }
 }
-// GENERAL CSS
+//--------------------------------------------------------------------------------------------------//
+// GENERAL CSS END
+//--------------------------------------------------------------------------------------------------//
 
-//////////-------------------FIRSTROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// END FIRST ROLL
+//--------------------------------------------------------------------------------------------------//
 
 
 
-//////////-------------------SECONDROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN SECOND ROLL
+//--------------------------------------------------------------------------------------------------//
+
 .secondRollContainer{
   max-width: 1120px;
   height: 520px;
@@ -443,10 +455,14 @@
 }
 // GROWTH
 
-//////////-------------------SECONDROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// END SECOND ROLL
+//--------------------------------------------------------------------------------------------------//
 
 
-//////////-------------------THIRDROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN THIRD ROLL
+//--------------------------------------------------------------------------------------------------//
 .thirdRollContainer{
   max-width: 1120px;
   height: 420px;
@@ -501,6 +517,10 @@
             font-size: .75rem;
             font-weight: normal;
             color: var(--gray);
+
+            span{
+              margin-left: 2rem;
+            }
           }
 
           li{
@@ -515,6 +535,8 @@
               word-spacing: .5px;
               white-space: nowrap;
               text-align: left;
+
+              
             }
 
             h4{
@@ -573,43 +595,6 @@
         }
       }
 
-      .infoCard{
-        height: 33%;
-        width: 100%;
-        margin-top: 1rem;
-        display: flex;
-        flex-wrap: wrap;
-
-        ul{
-          height: 100%;
-          width: 100%;
-          flex-wrap: wrap;
-
-          li{
-            width: 20%;
-            height: 1rem;
-            display: flex;
-            margin-top: .3rem;
-
-            p{
-              font-size: .9rem;
-              font-weight: normal;
-              color: var(--gray);
-              width: 2rem;
-              font-size: .9rem;
-              word-spacing: .5px;
-              white-space: nowrap;
-              text-align: left;
-            }
-
-            img{
-              height: 15px;
-              width: auto;
-              margin-left: 3rem;
-            }
-          }
-        }
-      }
     }
   }
 // CATEGORIES
@@ -645,7 +630,7 @@
             margin-bottom: -1rem;
 
             span{
-              word-spacing: 80px;
+                margin-left: 6rem;
             }
           }
 
@@ -715,11 +700,14 @@
 }
 // CATEGORIES
 
-//////////-------------------THIRDROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// END THIRD ROLL
+//--------------------------------------------------------------------------------------------------//
 
 
-
-//////////-------------------FOURTHROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// BEGIN FOURTH ROLL
+//--------------------------------------------------------------------------------------------------//
 .fourthRollContainer{
   max-width: 1120px;
   height: 620px;
@@ -896,7 +884,6 @@
   }
 // HOT BUYERS
 
-
   .cardContent2{
     height: 620px;
     width: 560px;
@@ -948,11 +935,15 @@
 }
 // HOT SELLERS
 
-//////////-------------------FOURTHROLL------------------------------////////////
+//--------------------------------------------------------------------------------------------------//
+// END FOURTH ROLL
+//--------------------------------------------------------------------------------------------------//
  
 
+//--------------------------------------------------------------------------------------------------//
+// BEGIN BASE
+//--------------------------------------------------------------------------------------------------//
 
-//////////-------------------BASE------------------------------////////////
 .baseContainer{
   max-width: 1120px;
   height: 2rem;
@@ -964,4 +955,3441 @@
     font-size: .8rem;
   }
 }
-//////////-------------------BASE------------------------------////////////
+
+//--------------------------------------------------------------------------------------------------//
+// END BASE
+//--------------------------------------------------------------------------------------------------//
+
+
+//--------------------------------------------------------------------------------------------------//
+// BEGIN MEDIA
+//--------------------------------------------------------------------------------------------------//
+
+
+@media (max-width: 1199px) {
+
+  .firstRollContainer{
+    max-width: 1120px;
+    height: 480px;
+    margin: .5rem auto;
+    display: flex;
+    margin-top: 2rem;
+    
+    .cardContent2{
+      width: 100%;
+      
+      .content{
+        height: 80px;
+
+        .cardAddress{
+          width: 100%;
+
+          .uniqueCard{
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 135%;
+
+            h3{
+              width: 50%;
+              margin-left: 0rem;
+              padding-right: 2rem;
+              margin-right: 1rem;     
+    
+              span{
+                font-size: .7rem;
+                width: 100px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          height: 100%;
+          width: 30%;
+          margin-left: 1rem;
+          display: flex;
+
+          .uniqueCard{
+
+            h2{
+              margin-left: 0rem;
+            }
+          }
+        }    
+      }
+    }
+  }
+
+  .secondRollContainer{
+      
+    .cardContent1{
+      width: 100%;
+    }
+  }
+
+  .thirdRollContainer{
+    max-width: 1120px;
+
+    .cardContent1{
+      width: 30%;
+
+      .cardCategories{
+  
+        .listCard{
+
+          ul{
+            p{
+              word-spacing: 5px;
+              margin-left: -.3rem;
+
+              span{
+                margin-left: 4rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+      height: 420px;
+      width: 35%;
+
+      .cardCatGraph{
+
+        .GraphCard{
+
+          canvas{
+            padding: 1.5rem;
+          }
+        }
+      }
+    }
+
+    .cardContent3{
+      height: 420px;
+      width: 35%;
+
+      .cardRanking{
+
+        .listRankingCard{
+
+          ul{
+  
+            p{
+              span{
+                margin-left: 8rem;
+              }
+            }
+          }
+        }
+      }
+      
+    }
+  }
+
+  .fourthRollContainer{
+    max-width: 1120px;
+    height: 620px;
+    margin: .5rem auto;
+    display: flex;
+
+
+    .cardWallet1{
+      height: 230px;
+      width: 210px;
+    }  
+  }
+}
+
+@media (max-width: 970px) {
+
+  .firstRollContainer{
+    max-width: 1120px;
+    height: 480px;
+
+    .cardContent1{
+      width: 30%;
+    }
+    
+    .cardContent2{
+      width: 70%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 70%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 150%;
+
+            h4{
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 90%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          width: 30%;
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 100%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 100%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 100%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-right: 1rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 16rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: -2rem;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-left: 3.8rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .secondRollContainer{
+
+    .cardContent1{
+     
+      .cardGrowth{
+
+        .GraphCard{
+          margin-top: 14rem;
+
+          canvas{
+            padding: 3rem 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+    max-width: 1120px;
+    height: auto;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 380px;
+      width: 100%;
+
+      .cardCategories{
+        height: 100%;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: var(--header);
+
+        .underTopCard{
+          margin-left: 1.5rem;
+          margin-top: -1rem;
+          height: 1rem;
+          width: 100%;
+        
+          p{
+            height: 2rem;
+            margin-left: -.6rem;
+            width: 90%;
+            padding-left: .5rem;
+            padding-top: .35rem;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+            background-color: var(--back);
+            border-radius: .5rem;
+          }
+        }
+
+        .listCard{
+          height: 2rem;
+          width: 100%;
+          margin: 1.5rem;
+          margin-top: 2rem;
+
+          ul{
+            height: 100%;
+            width: 100%;
+
+            p{
+              word-spacing: 120px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 25rem;
+              }
+            }
+
+            li{
+              width: 100%;
+              height: 1.5rem;
+              display: flex;
+              margin-top: .3rem;
+
+              p{
+                width: 45%;
+                font-size: .9rem;
+                word-spacing: .5px;
+                white-space: nowrap;
+                text-align: left;
+              }
+
+              h4{
+                width: 20%;
+                font-size: .9rem;
+                text-align: left;
+                margin-left: 1rem;
+              }
+
+              span{
+                width: 30%;
+                font-size: .9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+      height: 520px;
+      width: 100%;
+
+      .cardCatGraph{
+        height: 100%;
+        width: 100%;
+
+        .GraphCard{
+          height: 100%;
+          width: 100%;
+          margin-top: -3.5rem;
+
+          canvas {
+            padding:17rem;
+         }
+
+        }
+      }
+    }
+
+    .cardContent3{
+      height: 400px;
+      width: 100%;
+
+      .cardRanking{
+        height: 100%;
+        width: 100%;
+
+        .listRankingCard{
+          height: 2rem;
+          width: 100%;
+
+          ul{
+            height: 100%;
+            width: 100%;
+            
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 42rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 70px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 550px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 200px;
+                margin-right: -2rem;
+                margin-left: 12rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+  .fourthRollContainer{
+    width: 100%;
+    height: 1200px;
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardContent2{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardWallet1{
+      height: 230px;
+      width: 240px;
+    }
+  }
+
+}
+
+@media (max-width: 920px) {
+
+  .firstRollContainer{
+    max-width: 1120px;
+    height: 480px;
+
+    .cardContent1{
+      width: 30%;
+    }
+    
+    .cardContent2{
+      width: 70%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 70%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 150%;
+
+            h4{
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 90%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          width: 30%;
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 100%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 100%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 100%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-right: 1rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 14rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: -2rem;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-left: 3.8rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .secondRollContainer{
+
+    .cardContent1{
+     
+      .cardGrowth{
+
+        .GraphCard{
+          margin-top: 14rem;
+
+          canvas{
+            padding: 3rem 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+    max-width: 1120px;
+    height: auto;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 380px;
+      width: 100%;
+
+      .cardCategories{
+        height: 100%;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: var(--header);
+
+        .underTopCard{
+          margin-left: 1.5rem;
+          margin-top: -1rem;
+          height: 1rem;
+          width: 100%;
+        
+          p{
+            height: 2rem;
+            margin-left: -.6rem;
+            width: 90%;
+            padding-left: .5rem;
+            padding-top: .35rem;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+            background-color: var(--back);
+            border-radius: .5rem;
+          }
+        }
+
+        .listCard{
+          height: 2rem;
+          width: 100%;
+          margin: 1.5rem;
+          margin-top: 2rem;
+
+          ul{
+            height: 100%;
+            width: 100%;
+
+            p{
+              word-spacing: 80px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 24rem;
+              }
+            }
+
+            li{
+              width: 100%;
+              height: 1.5rem;
+              display: flex;
+              margin-top: .3rem;
+
+              p{
+                width: 45%;
+                font-size: .9rem;
+                word-spacing: .5px;
+                white-space: nowrap;
+                text-align: left;
+              }
+
+              h4{
+                width: 20%;
+                font-size: .9rem;
+                text-align: left;
+                margin-left: 1rem;
+              }
+
+              span{
+                width: 30%;
+                font-size: .9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+      height: 520px;
+      width: 100%;
+
+      .cardCatGraph{
+        height: 100%;
+        width: 100%;
+
+        .GraphCard{
+          height: 100%;
+          width: 100%;
+          margin-top: -3.5rem;
+
+          canvas {
+            padding:14rem;
+         }
+
+        }
+      }
+    }
+
+    .cardContent3{
+      height: 400px;
+      width: 100%;
+
+      .cardRanking{
+        height: 100%;
+        width: 100%;
+
+        .listRankingCard{
+          height: 2rem;
+          width: 100%;
+
+          ul{
+            height: 100%;
+            width: 100%;
+            
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 36rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 70px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 640px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 200px;
+                margin-right: -2rem;
+                margin-left: 12rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+  .fourthRollContainer{
+    width: 100%;
+    height: 1200px;
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardContent2{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardWallet1{
+      height: 230px;
+      width: 240px;
+    }
+  }
+
+}
+
+@media (max-width: 840px) {
+
+  .firstRollContainer{
+    max-width: 1120px;
+    height: 480px;
+
+    .cardContent1{
+      width: 30%;
+    }
+    
+    .cardContent2{
+      width: 70%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 70%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 150%;
+
+            h4{
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 90%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          width: 30%;
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 100%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 100%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 100%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-right: 1rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 12rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: -2rem;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-left: 3.8rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .secondRollContainer{
+
+    .cardContent1{
+     
+      .cardGrowth{
+
+        .GraphCard{
+          margin-top: 14rem;
+
+          canvas{
+            padding: 3rem 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+    max-width: 1120px;
+    height: auto;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 380px;
+      width: 100%;
+
+      .cardCategories{
+        height: 100%;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: var(--header);
+
+        .underTopCard{
+          margin-left: 1.5rem;
+          margin-top: -1rem;
+          height: 1rem;
+          width: 100%;
+        
+          p{
+            height: 2rem;
+            margin-left: -.6rem;
+            width: 90%;
+            padding-left: .5rem;
+            padding-top: .35rem;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+            background-color: var(--back);
+            border-radius: .5rem;
+          }
+        }
+
+        .listCard{
+          height: 2rem;
+          width: 100%;
+          margin: 1.5rem;
+          margin-top: 2rem;
+
+          ul{
+            height: 100%;
+            width: 100%;
+
+            p{
+              word-spacing: 80px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 22rem;
+              }
+            }
+
+            li{
+              width: 100%;
+              height: 1.5rem;
+              display: flex;
+              margin-top: .3rem;
+
+              p{
+                width: 45%;
+                font-size: .9rem;
+                word-spacing: .5px;
+                white-space: nowrap;
+                text-align: left;
+              }
+
+              h4{
+                width: 20%;
+                font-size: .9rem;
+                text-align: left;
+                margin-left: 1rem;
+              }
+
+              span{
+                width: 30%;
+                font-size: .9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+      height: 520px;
+      width: 100%;
+
+      .cardCatGraph{
+        height: 100%;
+        width: 100%;
+
+        .GraphCard{
+          height: 100%;
+          width: 100%;
+          margin-top: -3.5rem;
+
+          canvas {
+            padding:12rem;
+         }
+
+        }
+      }
+    }
+
+    .cardContent3{
+      height: 400px;
+      width: 100%;
+
+      .cardRanking{
+        height: 100%;
+        width: 100%;
+
+        .listRankingCard{
+          height: 2rem;
+          width: 100%;
+
+          ul{
+            height: 100%;
+            width: 100%;
+            
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 32rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 70px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 680px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 200px;
+                margin-right: -2rem;
+                margin-left: 12rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+  .fourthRollContainer{
+    width: 100%;
+    height: 1200px;
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardContent2{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardWallet1{
+      height: 230px;
+      width: 240px;
+    }
+  }
+
+}
+
+@media (max-width: 800px) {
+
+  .firstRollContainer{
+
+    .cardContent1{
+      width: 40%;
+    }
+    
+    .cardContent2{
+      width: 60%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 65%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 155%;
+
+            h4{
+              width: 100%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 70%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+                h2{
+                  width:10%;
+                }
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          width: 35%;
+  
+          .uniqueCard{
+            
+            h2{
+              width: 75%;
+              margin-left: -1.5rem;
+            }
+            a{
+              width: 20%;
+            }
+          }
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 100%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 100%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 100%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-right: 1rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 10rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: -1rem;
+  
+            svg{
+              width: 1.5rem;
+              height: auto;
+              margin-left: 3.8rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+
+    .cardContent1{
+
+
+      .cardCategories{
+
+
+        .listCard{
+
+          ul{
+
+
+            p{
+              word-spacing: 70px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 19rem;
+              }
+            }
+
+            li{
+              width: 100%;
+              height: 1.5rem;
+              display: flex;
+              margin-top: .3rem;
+
+              p{
+                width: 45%;
+                font-size: .9rem;
+                word-spacing: .5px;
+                white-space: nowrap;
+                text-align: left;
+              }
+
+              h4{
+                width: 20%;
+                font-size: .9rem;
+                text-align: left;
+                margin-left: 1rem;
+              }
+
+              span{
+                width: 30%;
+                font-size: .9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+
+      .cardCatGraph{
+
+        .GraphCard{
+          height: 100%;
+          width: 100%;
+          margin-top: -3.5rem;
+
+          canvas {
+            padding:11rem;
+         }
+
+        }
+      }
+    }
+
+    .cardContent3{
+
+      .cardRanking{
+
+        .listRankingCard{
+
+          ul{
+
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 30rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 70px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 700px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 240px;
+                margin-right: -2rem;
+                margin-left: 10rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+}
+
+@media (max-width: 700px) {
+
+  .firstRollContainer{
+
+
+    .cardContent1{
+      width: 40%;
+    }
+    
+    .cardContent2{
+      width: 60%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 60%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 165%;
+
+            h4{
+              display: none;
+              width: 50%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 70%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+                h2{
+                  width:10%;
+                }
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          width: 40%;
+  
+          .uniqueCard{
+            
+            h2{
+              width: 75%;
+              margin-left: -1rem;
+            }
+            a{
+              width: 35%;
+            }
+          }
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 100%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 50%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 100%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-right: .5rem;
+              margin-top: -.5rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 7.5rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: .5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 3.3rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .secondRollContainer{
+
+    .cardContent1{
+     
+      .cardGrowth{
+
+        .GraphCard{
+          margin-top: 12rem;
+
+          canvas{
+            padding: 0rem 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+    max-width: 1120px;
+    height: auto;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 380px;
+      width: 100%;
+
+      .cardCategories{
+        height: 100%;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: var(--header);
+
+        .underTopCard{
+          margin-left: 1.5rem;
+          margin-top: -1rem;
+          height: 1rem;
+          width: 100%;
+        
+          p{
+            height: 2rem;
+            margin-left: -.6rem;
+            width: 90%;
+            padding-left: .5rem;
+            padding-top: .35rem;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+            background-color: var(--back);
+            border-radius: .5rem;
+          }
+        }
+
+        .listCard{
+          height: 2rem;
+          width: 100%;
+          margin: 1.5rem;
+          margin-top: 2rem;
+
+          ul{
+            height: 100%;
+            width: 100%;
+
+            p{
+              word-spacing: 50px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 18rem;
+              }
+            }
+
+            li{
+              width: 100%;
+              height: 1.5rem;
+              display: flex;
+              margin-top: .3rem;
+
+              p{
+                width: 45%;
+                font-size: .9rem;
+                word-spacing: .5px;
+                white-space: nowrap;
+                text-align: left;
+              }
+
+              h4{
+                width: 20%;
+                font-size: .9rem;
+                text-align: left;
+                margin-left: 1rem;
+              }
+
+              span{
+                width: 30%;
+                font-size: .9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+      height: 520px;
+      width: 100%;
+
+      .cardCatGraph{
+        height: 100%;
+        width: 100%;
+
+        .GraphCard{
+          height: 100%;
+          width: 100%;
+          margin-top: -3.5rem;
+
+          canvas {
+            padding:6rem;
+         }
+
+        }
+      }
+    }
+
+    .cardContent3{
+      height: 400px;
+      width: 100%;
+
+      .cardRanking{
+        height: 100%;
+        width: 100%;
+
+        .listRankingCard{
+          height: 2rem;
+          width: 100%;
+
+          ul{
+            height: 100%;
+            width: 100%;
+            
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 26rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 80px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 640px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 240px;
+                margin-right: -1rem;
+                margin-left: 4rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+  .fourthRollContainer{
+    width: 100%;
+    height: 1200px;
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardContent2{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardWallet1{
+      height: 230px;
+      width: 240px;
+    }
+  }
+
+}
+
+@media (max-width: 640px) {
+
+  .firstRollContainer{
+    max-width: 1120px;
+    width: 100%;
+    height: 480px;
+
+    .cardContent1{
+      width: 40%;
+    }
+    
+    .cardContent2{
+      width: 60%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 60%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 165%;
+
+            h4{
+              display: none;
+              width: 50%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 70%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+                h2{
+                  width:10%;
+                }
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          width: 40%;
+  
+          .uniqueCard{
+            
+            h2{
+              width: 75%;
+              margin-left: -1rem;
+            }
+            a{
+              width: 35%;
+            }
+          }
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 100%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 50%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 100%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-right: .5rem;
+              margin-top: -.5rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 7rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: .5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 3.3rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+
+    .cardContent1{
+
+      .cardCategories{
+       
+        .listCard{
+
+          ul{
+
+            p{
+              word-spacing: 50px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 16rem;
+              }
+            }
+
+          }
+        }
+      }
+    }
+
+
+    .cardContent3{
+
+      .cardRanking{
+
+        .listRankingCard{
+
+          ul{
+
+            
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 24rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 80px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 750px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 240px;
+                margin-right: -1rem;
+                margin-left: 4rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+}
+
+@media (max-width: 610px) {
+
+  .firstRollContainer{
+    max-width: 1120px;
+    width: 100%;
+    height: 480px;
+    
+    .cardContent2{
+      width: 100%;
+      
+      .content{
+        height: 80px;
+        width: 100%;
+
+        .cardAddress{
+          width: 50%;
+
+          .uniqueCard{
+            width: 100%;
+
+            h4{
+              width: 90%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            svg{
+              margin-right: 1rem;
+            }
+          }
+
+          .uniqueCard2{
+            width: 120%;
+
+            h4{
+              display: none;
+              width: 50%;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            }
+
+            h3{
+              width: 70%;
+              margin-right: 0rem;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;  
+    
+              span{
+                width: 100%;
+                
+                h2{
+                  width:10%;
+                }
+              }
+            }
+          } 
+        }
+
+        .cardNet{
+          display: none;
+          width: 70%;
+  
+          .uniqueCard{
+            
+            h2{
+              width: 30%;
+            }
+            a{
+              width: 70%;
+            }
+          }
+        }
+      }
+
+      .content2{
+        height: 580px;
+        margin-top: 1rem;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+  
+        .cardWallets{
+          height: 30%;
+          width: 65%;
+          margin-bottom: 1rem;
+          background-color: var(--header);
+          background: url("../../public/images/fundo.png") 100% 60% repeat;
+  
+          .middleCard{
+            width: 50%;
+            height: 4rem;
+            margin-top: -3rem;
+            margin-left: 10rem;
+            margin-top: -4.5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 2rem;
+            }
+  
+            span{
+              height: 1.5rem;
+
+            }
+          }
+  
+          .baseCard{
+            margin-left: 1.5rem;
+            font-size: 1.2rem;
+            margin-top: -1rem;
+          }
+        }
+  
+        .cardHolders{
+          height: 75%;
+          width: 65%;
+          margin: 0;
+
+          .underTopCard{
+            display: none;
+          }
+  
+          .middleCard{
+            height: .5rem;
+            width: 100%;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-right: .5rem;
+              margin-top: -.5rem;
+            }
+  
+            p{
+              width: 1rem;
+              margin-right: 5rem;
+              margin-top: -1.5rem;
+            }
+          }
+  
+          .GraphCard{
+            height: 7rem;
+            width: 100%;
+  
+            canvas{
+              padding: 6rem;
+            }
+          }
+  
+          .baseCard{
+            height: 2rem;
+            width: 100%;
+            margin-top: .5rem;
+  
+            svg{
+              width: 1rem;
+              height: auto;
+              margin-left: 3.3rem;
+            }
+  
+            p{
+              margin-top: .5rem;
+              margin-left: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .secondRollContainer{
+
+    .cardContent1{
+     
+      .cardGrowth{
+
+        .GraphCard{
+          margin-top: 12rem;
+
+          canvas{
+            padding: 0rem 1rem;
+          }
+        }
+      }
+    }
+  }
+
+  .thirdRollContainer{
+    max-width: 1120px;
+    height: auto;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 380px;
+      width: 100%;
+
+      .cardCategories{
+        height: 100%;
+        width: 100%;
+        border-radius: 1rem;
+        background-color: var(--header);
+
+        .underTopCard{
+          margin-left: 1.5rem;
+          margin-top: -1rem;
+          height: 1rem;
+          width: 100%;
+        
+          p{
+            height: 2rem;
+            margin-left: -.6rem;
+            width: 90%;
+            padding-left: .5rem;
+            padding-top: .35rem;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+            background-color: var(--back);
+            border-radius: .5rem;
+          }
+        }
+
+        .listCard{
+          height: 2rem;
+          width: 100%;
+          margin: 1.5rem;
+          margin-top: 2rem;
+
+          ul{
+            height: 100%;
+            width: 100%;
+
+            p{
+              word-spacing: 50px;
+              font-size: 1rem;
+              font-weight: normal;
+              white-space: nowrap;
+              text-align: left;
+
+              span{
+                margin-left: 12rem;
+              }
+            }
+
+            li{
+              width: 100%;
+              height: 1.5rem;
+              display: flex;
+              margin-top: .3rem;
+
+              p{
+                width: 45%;
+                font-size: .9rem;
+                word-spacing: .5px;
+                white-space: nowrap;
+                text-align: left;
+              }
+
+              h4{
+                width: 20%;
+                font-size: .9rem;
+                text-align: left;
+                margin-left: 1rem;
+              }
+
+              span{
+                width: 30%;
+                font-size: .9rem;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    .cardContent2{
+      height: 520px;
+      width: 100%;
+
+      .cardCatGraph{
+        height: 100%;
+        width: 100%;
+
+        .GraphCard{
+          height: 100%;
+          width: 100%;
+          margin-top: -3.5rem;
+
+          canvas {
+            padding:6rem;
+         }
+
+        }
+      }
+    }
+
+    .cardContent3{
+      height: 400px;
+      width: 100%;
+
+      .cardRanking{
+        height: 100%;
+        width: 100%;
+
+        .listRankingCard{
+          height: 2rem;
+          width: 100%;
+
+          ul{
+            height: 100%;
+            width: 100%;
+            
+            p{
+              word-spacing: 30px;
+              font-size: 1rem;
+              margin-bottom: -1rem;
+
+              span{
+                margin-left: 20rem;
+              }
+            }
+
+            li{
+              width: 90%;
+
+              h4{
+                width: 80px;
+                padding-top: .2rem;
+                margin-right: 2rem;
+                margin-left: 1rem;
+              }
+
+              h3{
+                width: 800px;
+                padding-top: .2rem;
+                margin-left: -8rem;
+                margin-right: -6.5rem;
+              }
+
+              p{
+                width: 800px;
+                word-spacing: 5px;
+                margin-top: .3rem;
+                margin-left: 0.8rem;
+              }
+
+              span{
+                width: 240px;
+                margin-right: -1rem;
+                margin-left: 4rem;
+                margin-top: .4rem;
+                font-size: .8rem;
+              }
+            }
+          }
+        }
+      }
+    }
+  }  
+
+  .fourthRollContainer{
+    width: 100%;
+    height: 1200px;
+    margin: .5rem auto;
+    display: flex;
+    flex-direction: column;
+
+    .cardContent1{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardContent2{
+      height: 600px;
+      width: 100%;
+      display: flex;
+      padding: 1rem;
+    }
+
+    .cardWallet1{
+      height: 230px;
+      width: 240px;
+    }
+  }
+
+}
+
+@media (max-width: 575px){
+
+  //////////-------------------FIRSTROLL------------------------------////////////
+.firstRollContainer{
+  width: 100%;
+  flex-direction: column;
+  height: auto;
+  margin-top: 1rem;
+  
+  .cardContent1{
+    height: 480px;
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+    
+// TOKEN DETAILS
+    .cardToken{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+      display: flex;
+      flex-direction: column;
+
+      .topCard{
+        h3{
+          text-align: center;
+        }
+      }
+
+      .baseCard{
+        
+        h4{
+          margin-bottom: -2rem;
+        }
+
+        svg{
+          margin-top: -5rem;
+          margin-right: -1.2rem;
+        }
+      }
+    }
+  }
+// TOKEN DETAILS  
+
+  .cardContent2{
+    height: 100%;
+    width: 100%;
+    
+    .content{
+      width: 100%;
+      flex-direction: column;
+
+      .cardAddress{
+        width: 100%;
+
+// TOKEN ADDRESS
+        .uniqueCard{
+          svg{
+            margin-right: 1rem;
+          }
+        }
+// TOKEN ADDRESS
+
+// TOKEN BURN
+        .uniqueCard2{
+          width: 100%;
+
+          h4{
+            display: none;
+          }
+
+          h3{
+            margin-left: 0rem;
+            margin-right: 0rem;
+            text-align: center;
+            padding: .5rem;         
+            
+            span{
+              font-size: .8rem;
+            }
+          }
+        } 
+      }
+// TOKEN BURN
+
+// NETWORK
+      .cardNet{
+        width: 100%;
+        margin-left: 0rem;
+        margin-top: 1rem;
+
+        .uniqueCard{
+        
+          h2{
+            margin-top: .1rem;
+            margin-right: .5rem;
+            margin-left: 9rem;
+          }
+        }
+      }
+    }
+// NETWORK
+
+    .content2{
+      height: 100%;
+      margin-top: 3rem;
+      width: 100%;
+
+// UNIQUES WALLETS
+      .cardWallets{
+        width: 100%;
+
+        .middleCard{
+          width: 100%;
+          margin-left: 1rem;
+          height: 5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin-top: -2.5rem;
+
+          svg{
+            width: 2rem;
+            margin-left: 0rem;
+          }
+        }
+
+        .baseCard{
+          margin-left: 2rem;
+          margin-bottom: 2rem;
+        }
+      }
+// UNIQUES WALLETS
+
+// HOLDERS
+      .cardHolders{
+        width: 100%;
+        height: 100%;
+
+        .middleCard{
+          height: 2rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-end;
+
+          svg{
+            width: 1rem;
+            margin-top: -1rem;
+          }
+
+          p{
+            width: 1rem;
+            line-height: 1.5rem;
+            font-weight: 600;
+            text-align: right;
+            margin-right: 5rem;
+
+            span{
+              font-weight: 500;
+              color: darkgrey;
+            }
+          }
+        }
+
+        .GraphCard{
+          height: 14rem;
+          margin-top: -3rem;
+
+          canvas{
+            padding: 12rem;
+          }
+        }
+
+        .baseCard{
+          height: 2rem;
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          margin-top: -1.5rem;
+
+          svg{
+            margin-top: -1rem;
+            width: 1rem;
+          }
+
+          p{
+            margin-top: -2.5rem;
+            margin-left: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+// HOLDERS
+
+// GENERAL CSS
+.topCard{
+  height: 5rem;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  
+  h3{
+    width: 99%;
+    font-weight: normal;
+    font-size: 1.2rem;
+    text-align: left;
+    margin: 1.5rem;
+    margin-right: 1rem;
+
+  }
+
+  p{
+    width: 1%;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 1rem;
+    margin-left: 1rem;
+    margin-right: .2rem;
+    writing-mode: vertical-rl;
+    cursor: pointer;
+
+    abbr{
+      color: var(--header);
+    }
+  }
+}
+
+.underTopCard{
+  margin-left: 1.5rem;
+  margin-top: -1rem;
+  height: 1rem;
+  width: 100%;
+
+  p{
+    font-size: .75rem;
+    font-weight: normal;
+    color: var(--gray);
+  }
+}
+// GENERAL CSS
+
+//////////-------------------FIRSTROLL------------------------------////////////
+ 
+ 
+//////////-------------------SECONDROLL------------------------------////////////
+.secondRollContainer{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+// GROWTH
+  .cardContent1{
+    height: 300px;
+    width: 100%;
+
+    .cardGrowth{
+      height: 100%;
+      width: 100%;
+
+      .GraphCard{
+        height: 1%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-top: 7rem;
+
+        canvas{
+          padding: 3rem 1rem;
+        }
+      }
+    }
+  }
+}
+// GROWTH
+
+//////////-------------------SECONDROLL------------------------------////////////
+
+
+//////////-------------------THIRDROLL------------------------------////////////
+.thirdRollContainer{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  .cardContent1{
+    height: 350px;
+    width: 100%;
+
+// SCALE
+    .cardCategories{
+
+      .listCard{
+        height: 2rem;
+        width: 100%;
+        margin: 1.5rem;
+        margin-top: 2rem;
+
+        ul{
+          height: 100%;
+          width: 100%;
+
+          p{
+            word-spacing: 60px;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+
+            span{
+              margin-left: 15rem;
+            }
+          }
+
+          li{
+            h4{
+              margin-left: .5rem;
+            }
+
+            img{
+              margin-left: -1.5rem;
+            }
+
+            p{
+              margin-left: .2rem;
+              margin-right: -1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+// SCALE
+  .cardContent2{
+    height: auto;
+    width: 100%;
+
+// CATEGORIES
+    .cardCatGraph{
+      height: 100%;
+      width: 100%;
+
+      .GraphCard{
+        margin-top: -1rem;
+
+        canvas{
+          padding: 3rem;
+        }
+      }
+    }
+  }
+// CATEGORIES
+
+  .cardContent3{
+    height: 380px;
+    width: 100%;
+    display: flex;
+    padding: 1rem;
+
+// RANKING
+    .cardRanking{
+
+      .listRankingCard{
+        height: 2rem;
+
+        ul{
+          height: 100%;
+          width: 100%;
+          
+          p{
+            word-spacing: 25px;
+            font-size: .75rem;
+
+            span{
+              margin-left: 24rem;
+            }
+          }
+
+          li{
+            margin-left: 1.5rem;
+
+            h4{
+              width: 40px;
+              padding-top: .2rem;
+              margin-left: -1rem;
+              margin-right: 1.5rem;
+            }
+
+            h3{
+              width: 180px;
+              font-size: 1rem;
+              color: white;
+              text-align: left;
+              margin-left: -.7rem;
+            }
+
+            p{
+              width: 390px;
+              margin-left: 0.8rem;
+            }
+
+            span{
+              width: 150px;
+              margin-left: 1rem;
+              margin-right: .5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// CATEGORIES
+
+//////////-------------------THIRDROLL------------------------------////////////
+
+
+
+//////////-------------------FOURTHROLL------------------------------////////////
+.fourthRollContainer{
+  max-width: 100%;
+  width: 100%;
+  height: auto;
+
+// HOT BUYERS
+  .cardWallet1{
+    height: 230px;
+    width: 230px;
+    margin-bottom: 1rem;
+
+    .topWallet{
+      width: 100%;
+      height: 165px;      
+    }
+
+  }
+
+  .cardContent1{
+    height: auto;
+    width: 100%;
+    padding: 1rem;
+
+    .cardBuyers{
+      height: 100%;
+      width: 100%;
+
+      .firtsPlace{
+        flex-direction: column;
+        height: auto;        
+      }
+    
+      .secondsPlace{
+        flex-direction: column;
+        height: auto;
+      }
+    }
+  }
+// HOT BUYERS
+
+  .cardContent2{
+    height: auto;
+    width: 100%;
+    padding: 1rem;
+
+// HOT SELLERS
+    .cardSellers{
+      height: 100%;
+      width: 100%;
+      border-radius: 1rem;
+      background-color: var(--header);
+
+      .firtsPlace{
+        flex-direction: column;
+        height: auto;
+      }
+    
+      .secondsPlace{
+        flex-direction: column;
+        height: auto;
+      }
+            
+    }
+  }
+}
+// HOT SELLERS
+
+//////////-------------------FOURTHROLL------------------------------//////////// 
+}
+
+@media (max-width: 500px){
+
+  //////////-------------------FIRSTROLL------------------------------////////////
+.firstRollContainer{
+  
+ .cardContent2{    
+  
+    .content2{
+
+      .cardHolders{        
+
+        .GraphCard{
+
+          canvas{
+            padding: 9rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+//////////-------------------FIRSTROLL------------------------------////////////
+ 
+
+//////////-------------------THIRDROLL------------------------------////////////
+.thirdRollContainer{
+  width: 100%;
+  max-width: 100%;
+  height: auto;
+
+  .cardContent1{
+    height: 350px;
+    width: 100%;
+
+// SCALE
+    .cardCategories{
+
+      .listCard{
+
+        ul{
+
+          p{
+
+            span{
+              margin-left: 4rem;
+            }
+          }
+
+        }
+      }
+    }
+  }
+
+
+  .cardContent3{
+  
+
+
+    .cardRanking{
+
+      .listRankingCard{
+
+        ul{
+          height: 100%;
+          width: 100%;
+          
+          p{
+            word-spacing: 25px;
+            font-size: .75rem;
+
+            span{
+              margin-left: 12rem;
+            }
+          }
+
+          li{
+            margin-left: 1.5rem;
+
+            h4{
+              width: 40px;
+              padding-top: .2rem;
+              margin-left: -1rem;
+              margin-right: 1.5rem;
+            }
+
+            h3{
+              width: 200px;
+              font-size: 1rem;
+              color: white;
+              text-align: left;
+              margin-left: -.7rem;
+            }
+
+            p{
+              width: 390px;
+              margin-left: 0.8rem;
+            }
+
+            span{
+              width: 150px;
+              margin-left: 1rem;
+              margin-right: .5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// CATEGORIES
+
+//////////-------------------THIRDROLL------------------------------////////////
+
+}
+
+@media (max-width: 399px){
+  .mainContainer{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  //////////-------------------FIRSTROLL------------------------------////////////
+.firstRollContainer{
+
+  
+// TOKEN DETAILS  
+
+  .cardContent2{
+    
+    .content{
+
+      .cardAddress{
+        .uniqueCard2{
+
+          h3{
+            text-align: left;
+          }
+        } 
+      }
+
+// NETWORK
+      .cardNet{
+        .uniqueCard{
+        
+          h2{
+            margin-left: 7rem;
+          }
+        }
+      }
+    }
+// NETWORK
+
+    .content2{
+// HOLDERS
+      .cardHolders{
+
+        .GraphCard{
+          height: 14rem;
+          margin-top: -2rem;
+
+          canvas{
+            padding: 5.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+// HOLDERS
+//////////-------------------FIRSTROLL------------------------------////////////
+ 
+ 
+//////////-------------------SECONDROLL------------------------------////////////
+.secondRollContainer{
+// GROWTH
+  .cardContent1{
+
+    .cardGrowth{
+
+      .GraphCard{
+        height: 1%;
+        margin-top: 7rem;
+
+        canvas{
+          padding: 0rem 1rem;
+        }
+      }
+    }
+  }
+}
+// GROWTH
+
+//////////-------------------SECONDROLL------------------------------////////////
+
+
+//////////-------------------THIRDROLL------------------------------////////////
+.thirdRollContainer{
+
+  .cardContent1{
+
+// SCALE
+    .cardCategories{
+
+      .listCard{
+
+        ul{
+
+          p{
+            word-spacing: 20px;
+            font-size: .75rem;
+            font-weight: normal;
+            color: var(--gray);
+
+            span{
+              margin-left: 6rem;
+            }
+          }
+        }
+      }
+    }
+  }
+// SCALE
+  .cardContent2{
+
+    .cardCatGraph{
+      .GraphCard{
+        margin-top: -1rem;
+
+        canvas{
+          padding: 1rem;
+        }
+      }
+    }
+  }
+
+  .cardContent3{
+
+// RANKING
+    .cardRanking{
+
+      .listRankingCard{
+
+        ul{
+
+          p{
+            span{
+              margin-left: 9rem;
+            }
+          }
+
+          li{
+            margin-left: 1.5rem;
+
+            h4{
+              width: 40px;
+              padding-top: .2rem;
+              margin-left: -1rem;
+              margin-right: 1.5rem;
+            }
+
+            h3{
+              width: 170px;
+              font-size: 1rem;
+              color: white;
+              text-align: left;
+              margin-left: -.7rem;
+            }
+
+            p{
+              width: 150px;
+              margin-left: 0.8rem;
+            }
+
+            span{
+              margin-left: 1rem;
+              margin-right: 1.5rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+// CATEGORIES
+
+//////////-------------------THIRDROLL------------------------------////////////
+}
+
+//--------------------------------------------------------------------------------------------------//
+// END MEDIA
+//--------------------------------------------------------------------------------------------------//

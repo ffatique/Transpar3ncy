@@ -1,6 +1,6 @@
 *{
-  width: 100%;
   height: 100%;
+  width: 100%;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -51,9 +51,10 @@
   }
 }
 
-
 body{
   background: var(--back);
+  overflow-x: hidden;
+
 }
 
 p, h1, h2, h3, ul, li{
