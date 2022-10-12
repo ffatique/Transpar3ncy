@@ -882,6 +882,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const uniquesDaily = await getUniquesDaily();
 
   return{
+    revalidate: 60 * 480, // Revalidate 24 hours
     props: {
       details,
       info,
@@ -892,7 +893,5 @@ export const getStaticProps: GetStaticProps = async () => {
       hotWallets,
       uniquesDaily,
     },
-    revalidate: 60 * 1440 // Revalidate 24 hours
   }
-
 }
